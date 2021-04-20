@@ -1,1 +1,27 @@
-<p>nav-bar works!</p>
+<mat-toolbar id="nav-bar" class="flex">
+    <div class="flex">Pokémon Match</div>
+    <div class="flex">
+        <div>
+            <button mat-icon-button routerLink="./login">
+                <mat-icon>login</mat-icon>
+            </button>
+        </div>
+        <div>Login</div>
+    </div>
+    <div class="flex">
+        <div>
+            <button mat-icon-button routerLink="">
+                <mat-icon>settings</mat-icon>
+            </button>
+        </div>
+        <div>Game Settings</div>
+    </div>
+    <div class="flex">
+        <div>
+            <button mat-icon-button routerLink="">
+                <mat-icon>assignment</mat-icon>
+            </button>
+        </div>
+        <div>Stats</div>
+    </div>
+</mat-toolbar>
