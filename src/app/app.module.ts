@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material.module';
 import { MatchingGameComponent } from './components/matching-game/matching-game.component';
 import { LoginComponent } from './components/login/login.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FormsModule } from '@angular/forms';
 
 // firebase
@@ -24,7 +25,8 @@ import { AccountComponent } from './components/account/account.component';
     AppComponent,
     LoginComponent,
     AccountComponent,
-    MatchingGameComponent
+    MatchingGameComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
