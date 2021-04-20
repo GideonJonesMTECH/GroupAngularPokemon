@@ -14,11 +14,13 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AccountComponent } from './components/account/account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
