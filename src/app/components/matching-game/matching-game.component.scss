@@ -1,16 +1,40 @@
 #PlayingField {
-  padding: 10px;
+  padding: 1em;
   display: flex;
   flex-wrap: wrap;
+  margin: 1em;
+  justify-content: space-evenly;
 
   .matchingTile {
-    padding: 1em;
-    --size: 15em;
-    img {
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 3em;
+    --sizeS: 15em;
+    --sizeL: 20em;
+    position: relative;
+    .smlImg {
       border: 2px solid black;
       border-radius: 15px;
-      width: var(--size);
-      height: calc(var(--size) * 1.39591836735);
+      width: var(--sizeS);
+      height: calc(var(--sizeS) * 1.39591836735);
+    }
+    .lrgImg {
+      opacity: 0;
+      border: 2px solid black;
+      border-radius: 15px;
+      width: var(--sizeL);
+      height: calc(var(--sizeL) * 1.39591836735);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: 0.4s ease;
+    }
+  }
+  .matchingTile:hover {
+    .lrgImg {
+      opacity: 100;
     }
   }
 }

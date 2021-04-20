@@ -1,27 +1,27 @@
 <mat-toolbar id="nav-bar" class="flex">
-    <div class="flex">Pokémon Match</div>
-    <div class="flex">
-        <div>
-            <button mat-icon-button routerLink="./login">
-                <mat-icon>login</mat-icon>
-            </button>
-        </div>
-        <div>Login</div>
+  <div class="flex">Pokémon Match</div>
+  <div class="flex" id="login">
+    <div>
+      <button mat-icon-button routerLink="./login">
+        <mat-icon>login</mat-icon>
+      </button>
     </div>
-    <div class="flex">
-        <div>
-            <button mat-icon-button routerLink="">
-                <mat-icon>settings</mat-icon>
-            </button>
-        </div>
-        <div>Game Settings</div>
+    <div><a routerLink="./login">Login</a></div>
+  </div>
+  <div class="flex" id="gameSettings">
+    <div>
+      <button mat-icon-button routerLink="./game">
+        <mat-icon>settings</mat-icon>
+      </button>
     </div>
-    <div class="flex">
-        <div>
-            <button mat-icon-button routerLink="">
-                <mat-icon>assignment</mat-icon>
-            </button>
-        </div>
-        <div>Stats</div>
+    <div><a routerLink="./game">Game Settings</a></div>
+  </div>
+  <div class="flex" id="account">
+    <div>
+      <button mat-icon-button routerLink="./account">
+        <mat-icon>assignment</mat-icon>
+      </button>
     </div>
+    <div><a routerLink="./account">Stats</a></div>
+  </div>
 </mat-toolbar>
