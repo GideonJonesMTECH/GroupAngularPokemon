@@ -10,7 +10,7 @@ import { ApiCallService } from 'src/app/services/api-call.service';
 export class MatchingGameComponent implements OnInit {
   constructor(private api: ApiCallService) {}
 
-  matchCount = 7;
+  matchCount = 100;
   matchingCards = [];
   badCards = 0;
   duplicateCards = 0;
@@ -68,8 +68,20 @@ export class MatchingGameComponent implements OnInit {
 
     for (let j = 0; j < this.matchingCards.length; j++) {
       if (randomCard.name == this.matchingCards[j].name) {
-        console.log('FOUND DUPLICATE CARD, RUNNING FUNCTION AGAIN');
-        console.log(`Name: `, randomCard.name);
+        console.log(
+          `FOUND DUPLICATE CARD, RUNNING FUNCTION AGAIN. Name: `,
+          randomCard.name
+        );
+        this.duplicateCards++;
+        this.createNewCard(data, dataLength);
+        return;
+      } else if (
+        this.matchingCards[j].name.includes(randomCard.name) ||
+        randomCard.name.includes(this.matchingCards[j].name)
+      ) {
+        console.log(
+          `FOUND CARD WITH SIMILAR NAME, RUNNING FUNCTION AGAIN. Name: ${randomCard.name} vs ${this.matchingCards[j].name}`
+        );
         this.duplicateCards++;
         this.createNewCard(data, dataLength);
         return;
