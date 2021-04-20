@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    FlexLayoutModule,
     FormsModule,
     NgxAuthFirebaseUIModule.forRoot(
       environment.firebase,
