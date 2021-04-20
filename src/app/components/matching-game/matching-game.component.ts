@@ -10,9 +10,10 @@ import { ApiCallService } from 'src/app/services/api-call.service';
 export class MatchingGameComponent implements OnInit {
   constructor(private api: ApiCallService) {}
 
-  matchCount = 5;
+  matchCount = 7;
   matchingCards = [];
-  selectedNumbs = [];
+  badCards = 0;
+  duplicateCards = 0;
 
   ngOnInit(): void {
     this.api
@@ -33,6 +34,9 @@ export class MatchingGameComponent implements OnInit {
       this.createNewCard(data, dataLength);
     }
     console.log(`Cards for Matching:`, this.matchingCards);
+    console.log(
+      `Bad Cards: ${this.badCards} || Duplicates: ${this.duplicateCards}`
+    );
     let doubleCards = this.matchingCards.concat(this.matchingCards);
     this.matchingCards = this.shuffle(doubleCards);
   }
@@ -43,14 +47,6 @@ export class MatchingGameComponent implements OnInit {
 
   createNewCard(data, dataLength) {
     let randNumb = this.generateRandomNumber(0, dataLength);
-    for (let j = 0; j < this.selectedNumbs.length; j++) {
-      if (randNumb == this.selectedNumbs[j]) {
-        console.log('FOUND DUPLICATE CARD, RUNNING FUNCTION AGAIN');
-        this.createNewCard(data, dataLength);
-        return;
-      }
-    }
-
     let randomCard = data[randNumb];
 
     if (
@@ -59,12 +55,26 @@ export class MatchingGameComponent implements OnInit {
       randomCard.supertype !== 'Pokémon'
     ) {
       console.log('FOUND BAD CARD, RUNNING FUNCTION AGAIN');
+      console.log(
+        `Back of Card?`,
+        randomCard.images.large ==
+          'https://images.pokemontcg.io/hsp/HGSS18_hires.png'
+      );
+      console.log(`Name: `, randomCard.name);
+      this.badCards++;
       this.createNewCard(data, dataLength);
       return;
     }
 
-    this.selectedNumbs.push(randNumb);
-
+    for (let j = 0; j < this.matchingCards.length; j++) {
+      if (randomCard.name == this.matchingCards[j].name) {
+        console.log('FOUND DUPLICATE CARD, RUNNING FUNCTION AGAIN');
+        console.log(`Name: `, randomCard.name);
+        this.duplicateCards++;
+        this.createNewCard(data, dataLength);
+        return;
+      }
+    }
     this.matchingCards.push({
       name: randomCard.name,
       smlImg: randomCard.images.small,
