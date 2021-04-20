@@ -1,13 +1,16 @@
 #PlayingField {
   padding: 10px;
   display: flex;
+  flex-wrap: wrap;
+
   .matchingTile {
     padding: 1em;
+    --size: 15em;
     img {
       border: 2px solid black;
       border-radius: 15px;
-      width: 245px;
-      height: 342px;
+      width: var(--size);
+      height: calc(var(--size) * 1.39591836735);
     }
   }
 }
