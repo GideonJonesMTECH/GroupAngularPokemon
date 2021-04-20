@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoggedInGuard } from 'ngx-auth-firebaseui';
 import { AccountComponent } from '../components/account/account.component';
 import { LoginComponent } from '../components/login/login.component';
 import { MatchingGameComponent } from '../components/matching-game/matching-game.component';
@@ -7,10 +8,10 @@ import { MatchingGameComponent } from '../components/matching-game/matching-game
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'game', component: MatchingGameComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'account', component: AccountComponent },
+  { path: 'game', component: MatchingGameComponent, canActivate: [LoggedInGuard] },
+  { path: 'account', component: AccountComponent, canActivate: [LoggedInGuard] },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
