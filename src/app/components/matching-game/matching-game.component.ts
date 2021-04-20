@@ -11,28 +11,35 @@ export class MatchingGameComponent implements OnInit {
   constructor(private api: ApiCallService) {}
 
   matchCount = 5;
+  trainerCards = true;
 
   ngOnInit(): void {
-    this.api
-      .apiCall((this.generateRandomNumber(1, 54) as unknown) as string)
-      .subscribe((data) => {
+    if (this.trainerCards) {
+      this.api
+        .apiCall((this.generateRandomNumber(1, 54) as unknown) as string, true)
+        .subscribe((data) => {
+          console.warn('get API data', data);
+          let returnData = data as ApiReturn;
+          this.setup(returnData.data);
+        });
+    } else {
+      this.api.apiCall().subscribe((data) => {
         console.warn('get API data', data);
         let returnData = data as ApiReturn;
         this.setup(returnData.data);
       });
+    }
   }
 
   setup(data) {
     console.log(`Match Amount: ${this.matchCount}`);
     console.log(`Card Amount: ${this.matchCount * 2}`);
     let dataLength = data.length - 1;
-    for (let i = 0; i++; i < this.matchCount) {
-      let pokemonNumb = this.generateRandomNumber(0, dataLength);
-      console.log(pokemonNumb);
+    for (let i = 0; i < this.matchCount; i++) {
+      console.log(data[this.generateRandomNumber(0, dataLength)]);
     }
   }
-
-  generateRandomNumber(min = 0, max = 0): Number {
+  generateRandomNumber(min = 0, max = 0) {
     return Math.floor(Math.random() * max + min);
   }
 }

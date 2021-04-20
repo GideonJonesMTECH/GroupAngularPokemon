@@ -7,14 +7,15 @@ import { Injectable } from '@angular/core';
 export class ApiCallService {
   constructor(private http: HttpClient) {}
 
-  apiCall(pageNumb = '1', addition = '') {
-    console.log(
-      this.http.get(
-        `https://api.pokemontcg.io/v2/cards?page=${pageNumb}/${addition}`
-      )
-    );
-    return this.http.get(
-      `https://api.pokemontcg.io/v2/cards?page=${pageNumb}/${addition}`
-    );
+  apiCall(pageNumb = '1', trainerCards = false) {
+    if (trainerCards) {
+      return this.http.get(
+        `https://api.pokemontcg.io/v2/cards?page=${pageNumb}`
+      );
+    } else {
+      return this.http.get(
+        `https://api.pokemontcg.io/v2/cards?q=supertype:pokemon`
+      );
+    }
   }
 }
