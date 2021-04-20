@@ -4,6 +4,10 @@ mat-toolbar {
     text-decoration: none;
     color: black;
   }
+  a:hover {
+    text-decoration: underline;
+    transition: 0.4s ease;
+  }
 }
 .flex {
   display: flex;
