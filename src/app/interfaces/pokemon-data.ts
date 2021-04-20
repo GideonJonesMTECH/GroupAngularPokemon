@@ -1,4 +1,5 @@
 export interface PokemonData {
-  images: Object;
+  smlImg: String;
+  lrgImg: String;
   name: String;
 }

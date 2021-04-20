@@ -12,6 +12,7 @@ export class MatchingGameComponent implements OnInit {
 
   matchCount = 5;
   trainerCards = true;
+  matchingCards = [];
 
   ngOnInit(): void {
     if (this.trainerCards) {
@@ -36,8 +37,14 @@ export class MatchingGameComponent implements OnInit {
     console.log(`Card Amount: ${this.matchCount * 2}`);
     let dataLength = data.length - 1;
     for (let i = 0; i < this.matchCount; i++) {
-      console.log(data[this.generateRandomNumber(0, dataLength)]);
+      let randomCard = data[this.generateRandomNumber(0, dataLength)];
+      this.matchingCards.push({
+        name: randomCard.name,
+        smlImg: randomCard.images.small,
+        lrgImg: randomCard.images.large,
+      });
     }
+    console.log(`Cards for Matching:`, this.matchingCards);
   }
   generateRandomNumber(min = 0, max = 0) {
     return Math.floor(Math.random() * max + min);

@@ -1,0 +1,13 @@
+#PlayingField {
+  padding: 10px;
+  display: flex;
+  .matchingTile {
+    padding: 1em;
+    img {
+      border: 2px solid black;
+      border-radius: 15px;
+      width: 245px;
+      height: 342px;
+    }
+  }
+}

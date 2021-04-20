@@ -1,1 +1,5 @@
-<p>matching-game works!</p>
+<div id="PlayingField">
+  <div *ngFor="let card of matchingCards" class="matchingTile">
+    <img src="{{ card.smlImg }}" />
+  </div>
+</div>
