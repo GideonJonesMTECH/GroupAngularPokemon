@@ -1,6 +1,22 @@
+<div id="currentPlayer">
+  <h1>{{ currentPlayer }}'s turn</h1>
+</div>
+
 <div id="PlayingField">
   <div *ngFor="let card of matchingCards" class="matchingTile">
     <img class="smlImg" src="{{ card.smlImg }}" />
     <img class="lrgImg" src="{{ card.lrgImg }}" />
   </div>
 </div>
+
+<footer>
+  <div>
+    <h1>Round: {{ roundNumb }}</h1>
+  </div>
+  <div *ngFor="let player of playerArr">
+    <h1>{{ player.name }} Score: {{ player.score }}</h1>
+  </div>
+  <div>
+    <h1>Matches Left: {{ matchesRemaining }}</h1>
+  </div>
+</footer>

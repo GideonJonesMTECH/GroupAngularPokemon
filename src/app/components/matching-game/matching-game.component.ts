@@ -14,6 +14,13 @@ export class MatchingGameComponent implements OnInit {
   matchingCards = [];
   badCards = 0;
   duplicateCards = 0;
+  playerArr = [
+    { name: 'Gideon', score: 0 },
+    { name: 'Sam', score: 0 },
+  ];
+  roundNumb = 1;
+  matchesRemaining = this.matchCount;
+  currentPlayer = this.playerArr[0].name;
 
   ngOnInit(): void {
     this.api
@@ -49,33 +56,17 @@ export class MatchingGameComponent implements OnInit {
     let randNumb = this.generateRandomNumber(0, dataLength);
     let randomCard = data[randNumb];
 
-    if (
-      randomCard.images.large ==
-        'https://images.pokemontcg.io/hsp/HGSS18_hires.png' ||
-      randomCard.supertype !== 'Pokémon'
-    ) {
-      console.log('FOUND BAD CARD, RUNNING FUNCTION AGAIN');
+    if (randomCard.supertype !== 'Pokémon') {
       console.log(
-        `Back of Card?`,
-        randomCard.images.large ==
-          'https://images.pokemontcg.io/hsp/HGSS18_hires.png'
+        `FOUND BAD CARD, RUNNING FUNCTION AGAIN. Name: ${randomCard.name}`
       );
-      console.log(`Name: `, randomCard.name);
       this.badCards++;
       this.createNewCard(data, dataLength);
       return;
     }
 
     for (let j = 0; j < this.matchingCards.length; j++) {
-      if (randomCard.name == this.matchingCards[j].name) {
-        console.log(
-          `FOUND DUPLICATE CARD, RUNNING FUNCTION AGAIN. Name: `,
-          randomCard.name
-        );
-        this.duplicateCards++;
-        this.createNewCard(data, dataLength);
-        return;
-      } else if (
+      if (
         this.matchingCards[j].name.includes(randomCard.name) ||
         randomCard.name.includes(this.matchingCards[j].name)
       ) {

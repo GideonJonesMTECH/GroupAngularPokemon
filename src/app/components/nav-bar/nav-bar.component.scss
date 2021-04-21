@@ -1,3 +1,5 @@
+@use "src/styles";
+
 mat-toolbar {
   width: 100%;
 }
@@ -24,4 +26,8 @@ mat-toolbar {
       text-decoration: underline;
     }
   }
+}
+
+#nav-bar {
+  height: var(--navBarHeight);
 }
