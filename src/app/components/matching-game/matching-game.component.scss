@@ -1,3 +1,5 @@
+@use "src/styles";
+
 #PlayingField {
   padding: 1em;
   display: flex;
@@ -10,31 +12,59 @@
     text-align: center;
     align-items: center;
     padding: 3em;
-    --sizeS: 15em;
-    --sizeL: 20em;
     position: relative;
-    .smlImg {
+    .smlImg,
+    .backImg,
+    .lrgImg {
+      user-drag: none;
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+    .smlImg,
+    .backImg {
       border: 2px solid black;
       border-radius: 15px;
-      width: var(--sizeS);
-      height: calc(var(--sizeS) * 1.39591836735);
+      width: var(--cardSizeS);
+      height: calc(var(--cardSizeS) * 1.39591836735);
     }
     .lrgImg {
       opacity: 0;
       border: 2px solid black;
       border-radius: 15px;
-      width: var(--sizeL);
-      height: calc(var(--sizeL) * 1.39591836735);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      width: var(--cardSizeL);
+      height: calc(var(--cardSizeL) * 1.39591836735);
       transition: 0.4s ease;
     }
-  }
-  .matchingTile:hover {
-    .lrgImg {
-      opacity: 100;
+    .lrgImg,
+    .backImg {
+      position: absolute;
+      top: 49%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
+}
+
+footer {
+  display: flex;
+  justify-content: space-evenly;
+  height: var(--footerHeight);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: whitesmoke;
+  align-content: center;
+  div {
+    padding: 1em;
+  }
+}
+
+#currentPlayer {
+  display: flex;
+  justify-content: center;
+  padding-top: 2em;
 }

@@ -1,5 +1,7 @@
+@use "src/styles";
+
 mat-toolbar {
-  width: 100%;
+//   width: 100%;
 }
 .flex,
 .link {
@@ -24,4 +26,8 @@ mat-toolbar {
       text-decoration: underline;
     }
   }
+}
+
+#nav-bar {
+  height: var(--navBarHeight);
 }
