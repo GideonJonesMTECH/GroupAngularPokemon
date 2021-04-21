@@ -46,7 +46,7 @@ import { AccountComponent } from './components/account/account.component';
         toastMessageOnAuthSuccess: false, // whether to open/show a snackbar message on auth success - default : true
         toastMessageOnAuthError: false, // whether to open/show a snackbar message on auth error - default : true
         authGuardFallbackURL: '/login', // url for unauthenticated users - to use in combination with canActivate feature on a route
-        authGuardLoggedInURL: '/game', // url for authenticated users - to use in combination with canActivate feature on a route
+        authGuardLoggedInURL: '/account', // url for authenticated users - to use in combination with canActivate feature on a route
         passwordMaxLength: 60, // `min/max` input parameters in components should be within this range.
         passwordMinLength: 8, // Password length min/max in forms independently of each componenet min/max.
         // Same as password but for the name
