@@ -13,7 +13,18 @@
     align-items: center;
     padding: 3em;
     position: relative;
-    .smlImg {
+    .smlImg,
+    .backImg,
+    .lrgImg {
+      user-drag: none;
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+    .smlImg,
+    .backImg {
       border: 2px solid black;
       border-radius: 15px;
       width: var(--cardSizeS);
@@ -25,11 +36,14 @@
       border-radius: 15px;
       width: var(--cardSizeL);
       height: calc(var(--cardSizeL) * 1.39591836735);
+      transition: 0.4s ease;
+    }
+    .lrgImg,
+    .backImg {
       position: absolute;
-      top: 50%;
+      top: 49%;
       left: 50%;
       transform: translate(-50%, -50%);
-      transition: 0.4s ease;
     }
   }
 }

@@ -10,7 +10,7 @@ import { ApiCallService } from 'src/app/services/api-call.service';
 export class MatchingGameComponent implements OnInit {
   constructor(private api: ApiCallService) {}
 
-  matchCount = 10;
+  matchCount = 4;
   matchingCards = [];
   badCards = 0;
   duplicateCards = 0;
@@ -21,6 +21,8 @@ export class MatchingGameComponent implements OnInit {
   roundNumb = 1;
   matchesRemaining = this.matchCount;
   currentPlayer = this.playerArr[0].name;
+  selectedCards = [];
+  matchedCards = [];
 
   ngOnInit(): void {
     this.api
@@ -46,10 +48,6 @@ export class MatchingGameComponent implements OnInit {
     );
     let doubleCards = this.matchingCards.concat(this.matchingCards);
     this.matchingCards = this.shuffle(doubleCards);
-  }
-
-  generateRandomNumber(min = 0, max = 0) {
-    return Math.floor(Math.random() * max + min);
   }
 
   createNewCard(data, dataLength) {
@@ -83,6 +81,7 @@ export class MatchingGameComponent implements OnInit {
       smlImg: randomCard.images.small,
       lrgImg: randomCard.images.large,
       supertype: randomCard.supertype,
+      id: randomCard.id,
     });
   }
 
@@ -104,5 +103,49 @@ export class MatchingGameComponent implements OnInit {
     }
 
     return array;
+  }
+
+  generateRandomNumber(min = 0, max = 0) {
+    return Math.floor(Math.random() * max + min);
+  }
+
+  onCardSelect(id, cardNumb) {
+    console.log(id);
+
+    for (let i = 0; i < this.matchedCards.length; i++) {
+      if (this.matchedCards[0] != null) {
+        if (this.matchedCards[i] == id) {
+          return;
+        }
+      }
+    }
+    if (this.selectedCards[0] != null) {
+      if (this.selectedCards[0].numb == cardNumb) {
+        return;
+      }
+    }
+    let cardObj = { id: id, numb: cardNumb };
+    this.selectedCards.push(cardObj);
+    document.getElementById(`lrg${cardNumb}`).style.opacity = '100';
+
+    if (this.selectedCards.length == 2) {
+      if (this.selectedCards[0].id == this.selectedCards[1].id) {
+        document.getElementById(
+          `back${this.selectedCards[0].numb}`
+        ).style.opacity = '0';
+        document.getElementById(
+          `back${this.selectedCards[1].numb}`
+        ).style.opacity = '0';
+        this.matchesRemaining--;
+        this.matchedCards.push(id);
+      }
+
+      this.selectedCards = [];
+      setTimeout(() => {
+        for (let i = 0; i < this.matchingCards.length; i++) {
+          document.getElementById(`lrg${i}`).style.opacity = '0';
+        }
+      }, 1500);
+    }
   }
 }

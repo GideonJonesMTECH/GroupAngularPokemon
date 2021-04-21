@@ -3,9 +3,19 @@
 </div>
 
 <div id="PlayingField">
-  <div *ngFor="let card of matchingCards" class="matchingTile">
-    <img class="smlImg" src="{{ card.smlImg }}" />
-    <img class="lrgImg" src="{{ card.lrgImg }}" />
+  <div
+    *ngFor="let card of matchingCards; let i = index"
+    class="matchingTile"
+    (click)="onCardSelect(card.id, i)"
+    id="{{ i }}Card"
+  >
+    <img class="smlImg" src="{{ card.smlImg }}" id="sml{{ i }}" />
+    <img
+      class="backImg"
+      src="../../../assets/pokemonCardBack.png"
+      id="back{{ i }}"
+    />
+    <img class="lrgImg" src="{{ card.lrgImg }}" id="lrg{{ i }}" />
   </div>
 </div>
 
