@@ -18,6 +18,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountComponent } from './components/account/account.component';
+import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AccountComponent } from './components/account/account.component';
     LoginComponent,
     AccountComponent,
     MatchingGameComponent,
-    NavBarComponent
+    NavBarComponent,
+    GameSettingsComponent
   ],
   imports: [
     BrowserModule,
