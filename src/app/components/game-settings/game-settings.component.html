@@ -1,1 +1,49 @@
-<p>game-settings works!</p>
+<mat-card>
+    <h2>Game Settings!</h2>
+    <div class="flex">
+        <div class="right-side">
+            <h3>Select Game Options Here!</h3>
+            <div class="gameSettings">
+                <section>
+                    <mat-form-field appearance='fill'>
+                        <mat-label>Number Of Players</mat-label>
+                        <mat-select required>
+                            <mat-option>-=-=-</mat-option>
+                            <mat-option>1</mat-option>
+                            <mat-option>2</mat-option>
+                            <mat-option>3</mat-option>
+                            <mat-option>4</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            Number of players needs to be specified
+                        </mat-error>
+                    </mat-form-field>
+                </section>
+                <section>
+                    <mat-form-field appearance='fill'>
+                        <mat-label>Number Of Matches</mat-label>
+                        <mat-select required>
+                            <mat-option>-=-=-</mat-option>
+                            <mat-option></mat-option>
+                            <mat-option></mat-option>
+                            <mat-option></mat-option>
+                            <mat-option></mat-option>
+                        </mat-select>
+                        <mat-error>
+                            Number of matches needs to be specified
+                        </mat-error>
+                    </mat-form-field>
+                </section>
+                <section>
+                    <mat-form-field>
+                        <mat-label>Card Set - Chose 1-54</mat-label>
+                        <input matInput type="number">
+                    </mat-form-field>
+                    <mat-error>
+                        
+                    </mat-error>
+                </section>
+            </div>
+        </div>
+    </div>
+</mat-card>
