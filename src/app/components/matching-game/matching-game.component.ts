@@ -10,7 +10,7 @@ import { ApiCallService } from 'src/app/services/api-call.service';
 export class MatchingGameComponent implements OnInit {
   constructor(private api: ApiCallService) {}
 
-  matchCount = 100;
+  matchCount = 10;
   matchingCards = [];
   badCards = 0;
   duplicateCards = 0;
