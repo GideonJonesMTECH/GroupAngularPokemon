@@ -3,4 +3,5 @@ export interface PokemonData {
   lrgImg: String;
   name: String;
   supertype: String;
+  id: String;
 }

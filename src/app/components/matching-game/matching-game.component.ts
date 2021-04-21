@@ -10,10 +10,19 @@ import { ApiCallService } from 'src/app/services/api-call.service';
 export class MatchingGameComponent implements OnInit {
   constructor(private api: ApiCallService) {}
 
-  matchCount = 10;
+  matchCount = 4;
   matchingCards = [];
   badCards = 0;
   duplicateCards = 0;
+  playerArr = [
+    { name: 'Gideon', score: 0 },
+    { name: 'Sam', score: 0 },
+  ];
+  roundNumb = 1;
+  matchesRemaining = this.matchCount;
+  currentPlayer = this.playerArr[0].name;
+  selectedCards = [];
+  matchedCards = [];
 
   ngOnInit(): void {
     this.api
@@ -41,41 +50,21 @@ export class MatchingGameComponent implements OnInit {
     this.matchingCards = this.shuffle(doubleCards);
   }
 
-  generateRandomNumber(min = 0, max = 0) {
-    return Math.floor(Math.random() * max + min);
-  }
-
   createNewCard(data, dataLength) {
     let randNumb = this.generateRandomNumber(0, dataLength);
     let randomCard = data[randNumb];
 
-    if (
-      randomCard.images.large ==
-        'https://images.pokemontcg.io/hsp/HGSS18_hires.png' ||
-      randomCard.supertype !== 'Pokémon'
-    ) {
-      console.log('FOUND BAD CARD, RUNNING FUNCTION AGAIN');
+    if (randomCard.supertype !== 'Pokémon') {
       console.log(
-        `Back of Card?`,
-        randomCard.images.large ==
-          'https://images.pokemontcg.io/hsp/HGSS18_hires.png'
+        `FOUND BAD CARD, RUNNING FUNCTION AGAIN. Name: ${randomCard.name}`
       );
-      console.log(`Name: `, randomCard.name);
       this.badCards++;
       this.createNewCard(data, dataLength);
       return;
     }
 
     for (let j = 0; j < this.matchingCards.length; j++) {
-      if (randomCard.name == this.matchingCards[j].name) {
-        console.log(
-          `FOUND DUPLICATE CARD, RUNNING FUNCTION AGAIN. Name: `,
-          randomCard.name
-        );
-        this.duplicateCards++;
-        this.createNewCard(data, dataLength);
-        return;
-      } else if (
+      if (
         this.matchingCards[j].name.includes(randomCard.name) ||
         randomCard.name.includes(this.matchingCards[j].name)
       ) {
@@ -92,6 +81,7 @@ export class MatchingGameComponent implements OnInit {
       smlImg: randomCard.images.small,
       lrgImg: randomCard.images.large,
       supertype: randomCard.supertype,
+      id: randomCard.id,
     });
   }
 
@@ -113,5 +103,49 @@ export class MatchingGameComponent implements OnInit {
     }
 
     return array;
+  }
+
+  generateRandomNumber(min = 0, max = 0) {
+    return Math.floor(Math.random() * max + min);
+  }
+
+  onCardSelect(id, cardNumb) {
+    console.log(id);
+
+    for (let i = 0; i < this.matchedCards.length; i++) {
+      if (this.matchedCards[0] != null) {
+        if (this.matchedCards[i] == id) {
+          return;
+        }
+      }
+    }
+    if (this.selectedCards[0] != null) {
+      if (this.selectedCards[0].numb == cardNumb) {
+        return;
+      }
+    }
+    let cardObj = { id: id, numb: cardNumb };
+    this.selectedCards.push(cardObj);
+    document.getElementById(`lrg${cardNumb}`).style.opacity = '100';
+
+    if (this.selectedCards.length == 2) {
+      if (this.selectedCards[0].id == this.selectedCards[1].id) {
+        document.getElementById(
+          `back${this.selectedCards[0].numb}`
+        ).style.opacity = '0';
+        document.getElementById(
+          `back${this.selectedCards[1].numb}`
+        ).style.opacity = '0';
+        this.matchesRemaining--;
+        this.matchedCards.push(id);
+      }
+
+      this.selectedCards = [];
+      setTimeout(() => {
+        for (let i = 0; i < this.matchingCards.length; i++) {
+          document.getElementById(`lrg${i}`).style.opacity = '0';
+        }
+      }, 1500);
+    }
   }
 }
