@@ -1,31 +1,31 @@
 .accountInfo {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  .username {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
     align-items: center;
 
-    .username {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        h5 {
-            color: gray;
-        }
+    h5 {
+      color: gray;
     }
+  }
 }
 
 .gameInfo {
-    display: flex;
-    align-items: center;
-    margin-top: 1px;
+  display: flex;
+  align-items: center;
+  margin-top: 1px;
 
-    .leftSide {
-        flex-grow: 3;
-    }
+  .leftSide {
+    flex-grow: 3;
+  }
 
-    .rightSide {
-        flex-grow: 1;
-
+  .rightSide {
+    flex-grow: 1;
+    
         .playersLostWon {
             border: 1px solid black;
             overflow-y: scroll;
@@ -39,4 +39,14 @@
             }
         }
     }
+  }
+}
+
+#login {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
