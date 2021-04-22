@@ -7,7 +7,7 @@
                 <section>
                     <mat-form-field appearance='fill'>
                         <mat-label>Number Of Players</mat-label>
-                        <mat-select required>
+                        <mat-select required (change)="onPlayerSelect()">
                             <mat-option>-=-=-</mat-option>
                             <mat-option>1</mat-option>
                             <mat-option>2</mat-option>
@@ -22,7 +22,7 @@
                 <section>
                     <mat-form-field appearance='fill'>
                         <mat-label>Number Of Matches</mat-label>
-                        <mat-select required>
+                        <mat-select required (change)="onDifficultySelect()">
                             <mat-option>-=-=-</mat-option>
                             <mat-option>Easy - 5</mat-option>
                             <mat-option>Medium - 8</mat-option>
@@ -45,8 +45,8 @@
                         <button 
                             mat-raised-button 
                             type="submit" 
-                            [routerLink]="['/game/']" 
-                            (click)="onSubmit()"
+                            id="gamePlayButton"
+                            disabled
                         >
                             Play Game!
                         </button>
