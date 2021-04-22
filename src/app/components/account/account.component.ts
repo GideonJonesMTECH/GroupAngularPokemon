@@ -10,6 +10,8 @@ export class AccountComponent implements OnInit {
 
   gamesPlayed: number;
   gamesWon: number;
+  playersWon = ['Gideon', 'Hayden'];
+  playersLost = ['Gideon', 'Hayden'];
 
   constructor(
     public authService: AuthService

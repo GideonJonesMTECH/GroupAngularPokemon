@@ -29,6 +29,14 @@
         .playersLostWon {
             border: 1px solid black;
             overflow-y: scroll;
+            margin: 10px;
+            padding: 10px;
+
+            div {
+                display: flex;
+                flex-direction: column;
+                margin: 10px 20px;
+            }
         }
     }
 }
