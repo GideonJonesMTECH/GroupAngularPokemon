@@ -3,7 +3,7 @@
     <div class="right-side">
       <h3>Select Game Options Here!</h3>
       <div class="gameSettings">
-        <form [formGroup]="infoForm" (ngSubmit)="onFormSubmit()">
+        <form [formGroup]="infoForm" (ngSubmit)="onFormSubmit(infoForm.value)">
           <section>
             <mat-form-field appearance="fill">
               <mat-label>Number Of Players</mat-label>
@@ -51,7 +51,6 @@
                 type="submit"
                 id="gamePlayButton"
                 disabled
-                [routerLink]="['/game/']"
               >
                 Play Game!
               </button>

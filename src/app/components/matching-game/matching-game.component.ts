@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiReturn } from 'src/app/interfaces/api-return';
 import { ApiCallService } from 'src/app/services/api-call.service';
 
@@ -8,17 +9,17 @@ import { ApiCallService } from 'src/app/services/api-call.service';
   styleUrls: ['./matching-game.component.scss'],
 })
 export class MatchingGameComponent implements OnInit {
-  constructor(private api: ApiCallService) {}
+  formReturn;
 
-  matchCount = 2;
+  constructor(private api: ApiCallService, private router: Router) {
+    this.formReturn = this.router.getCurrentNavigation().extras.state.data;
+  }
+
+  matchCount = 5;
   matchingCards = [];
   badCards = 0;
   duplicateCards = 0;
-  playerArr = [
-    { name: 'Gideon', score: 0 },
-    { name: 'Sam', score: 0 },
-    { name: 'Hayden', score: 0 },
-  ];
+  playerArr = [];
   roundNumb = 1;
   matchesRemaining = this.matchCount;
   currentPlayer = 0;
@@ -26,14 +27,25 @@ export class MatchingGameComponent implements OnInit {
   matchedCards = [];
 
   ngOnInit(): void {
-    this.api
-      .apiCall((this.generateRandomNumber(1, 54) as unknown) as string)
-      // .apiCall('54', true) TESTING, SMALLEST DATA POOL
-      .subscribe((data) => {
-        console.warn('get API data', data);
-        let returnData = data as ApiReturn;
-        this.setup(returnData.data);
-      });
+    console.log(this.formReturn);
+    this.matchCount = (this.formReturn.difficulty as unknown) as number;
+    this.matchesRemaining = this.matchCount;
+
+    let pageNumb = 1;
+    if (this.formReturn.cards === null) {
+      console.log('Randomly generating page numb');
+      pageNumb = this.generateRandomNumber(1, 54);
+    } else {
+      pageNumb = this.formReturn.cards;
+    }
+    this.api.apiCall((pageNumb as unknown) as string).subscribe((data) => {
+      console.warn('get API data', data);
+      let returnData = data as ApiReturn;
+      this.setup(returnData.data);
+    });
+    for (let i = 0; i < this.formReturn.players; i++) {
+      this.playerArr.push({ name: 'Dummy', score: 0 });
+    }
   }
 
   setup(data) {

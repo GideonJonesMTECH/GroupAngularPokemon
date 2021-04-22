@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-settings',
@@ -7,7 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./game-settings.component.scss'],
 })
 export class GameSettingsComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router) {}
 
   selectedDifficulty = false;
   selectedPlayers = false;
@@ -44,7 +45,10 @@ export class GameSettingsComponent implements OnInit {
     }
   }
 
-  onFormSubmit() {
-    console.log(this.infoForm.value);
+  onFormSubmit(formvalue) {
+    console.log(formvalue);
+    this.router.navigateByUrl('/game', {
+      state: { data: this.infoForm.value },
+    });
   }
 }
