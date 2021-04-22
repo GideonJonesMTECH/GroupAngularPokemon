@@ -8,8 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AccountComponent implements OnInit {
 
-  gamesPlayed: number;
-  gamesWon: number;
+  gamesPlayed = 5;
+  gamesWon = 2;
   playersWon = ['Gideon', 'Hayden'];
   playersLost = ['Gideon', 'Hayden'];
 
