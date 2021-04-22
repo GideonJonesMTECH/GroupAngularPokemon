@@ -1,9 +1,36 @@
 <div *ngIf="authService.user$ | async as user; else login">
-  <mat-card class="accountInfo">
-    <img src="{{ user.photoURL }}" alt="profile picture" />
-    <div class="username">
-      <h3>{{ user.displayName }}</h3>
-      <h5>{{ user.email }}</h5>
+    <mat-card class="accountInfo">
+        <img src="{{ user.photoURL }}" alt="profile picture">
+        <div class="username">
+            <h3>{{ user.displayName }}</h3>
+            <h5>{{ user.email }}</h5>
+        </div>
+        <button mat-raised-button (click)="authService.signOut()">Sign Out</button>
+    </mat-card>
+    <div class="gameInfo">
+        <mat-card class="leftSide">
+            <h2>Games played: {{ gamesPlayed }}</h2>
+            <h2>Games won: {{ gamesWon }}</h2>
+            <h2>Games lost: {{ gamesPlayed - gamesWon }}</h2>
+        </mat-card>
+        <mat-card class="rightSide">
+            <div class="playersLostWon">
+                <h2>Players you've won against:</h2>
+                <div>
+                    <span *ngFor="let player of playersWon">
+                        {{ player }}
+                    </span>
+                </div>
+            </div>
+            <div class="playersLostWon">
+                <h2>Players you've lost to:</h2>
+                <div>
+                    <span *ngFor="let player of playersLost">
+                        {{ player }}
+                    </span>
+                </div>
+            </div>
+        </mat-card>
     </div>
     <button mat-raised-button (click)="authService.signOut()">Sign Out</button>
   </mat-card>
