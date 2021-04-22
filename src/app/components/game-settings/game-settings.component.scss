@@ -1,12 +1,30 @@
 mat-card {
-    height: 100%;
-}
-
-.flex {
+  height: 100%;
+  width: 100%;
+  .flex {
     display: flex;
-    justify-content: space-around;
-}
-
-.right-side {
-    width: 60%;
+    .right-side {
+      margin-top: 2em;
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      text-align: center;
+      mat-form-field {
+        margin: 0.75em;
+      }
+      .flexButton {
+        margin: 0.75em;
+      }
+    }
+    .left-side {
+      margin-top: 2em;
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      text-align: center;
+      ul {
+        list-style: none;
+      }
+    }
+  }
 }
