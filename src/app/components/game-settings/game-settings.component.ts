@@ -12,4 +12,8 @@ export class GameSettingsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit() {
+    console.log("Button Works");
+  }
+
 }

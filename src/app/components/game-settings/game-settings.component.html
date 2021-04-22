@@ -39,9 +39,18 @@
                         <mat-label>Card Set - Chose 1-54</mat-label>
                         <input matInput type="number">
                     </mat-form-field>
-                    <mat-error>
-
-                    </mat-error>
+                </section>
+                <section>
+                    <div class="flexButton">
+                        <button 
+                            mat-raised-button 
+                            type="submit" 
+                            [routerLink]="['/game/']" 
+                            (click)="onSubmit()"
+                        >
+                            Play Game!
+                        </button>
+                    </div>
                 </section>
             </div>
         </div>
