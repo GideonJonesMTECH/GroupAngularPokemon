@@ -8,6 +8,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AccountComponent implements OnInit {
 
+  gamesPlayed: number;
+  gamesWon: number;
+
   constructor(
     public authService: AuthService
   ) { }

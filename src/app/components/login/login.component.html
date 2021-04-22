@@ -1,7 +1,0 @@
-<div *ngIf="authService.user$ | async as user; else login">
-    <button mat-raised-button (click)="authService.signOut()">Sign Out</button>
-</div>
-
-<ng-template #login>
-    <button mat-raised-button (click)="authService.googleSignIn()">Login with Google</button>
-</ng-template>
