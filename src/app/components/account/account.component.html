@@ -1,29 +1,33 @@
 <div *ngIf="authService.user$ | async as user; else login">
-    <mat-card class="accountInfo">
-        <img src="{{ user.photoURL }}" alt="profile picture">
-        <div class="username">
-            <h3>{{ user.displayName }}</h3>
-            <h5>{{ user.email }}</h5>
-        </div>
-        <button mat-raised-button (click)="authService.signOut()">Sign Out</button>
-    </mat-card>
-    <div class="gameInfo">
-        <mat-card class="leftSide">
-                <h3>Games played: {{ gamesPlayed }}</h3>
-                <h3>Games won: {{ gamesWon }}</h3>
-                <h3>Games lost: {{ gamesPlayed - gamesWon }}</h3>
-        </mat-card>
-        <mat-card class="rightSide">
-            <div class="playersLostWon">
-                <h3>Players you've won against:</h3>
-            </div>
-            <div class="playersLostWon">
-                <h3>Players you've lost to:</h3>
-            </div>
-        </mat-card>
+  <mat-card class="accountInfo">
+    <img src="{{ user.photoURL }}" alt="profile picture" />
+    <div class="username">
+      <h3>{{ user.displayName }}</h3>
+      <h5>{{ user.email }}</h5>
     </div>
+    <button mat-raised-button (click)="authService.signOut()">Sign Out</button>
+  </mat-card>
+  <div class="gameInfo">
+    <mat-card class="leftSide">
+      <h3>Games played: {{ gamesPlayed }}</h3>
+      <h3>Games won: {{ gamesWon }}</h3>
+      <h3>Games lost: {{ gamesPlayed - gamesWon }}</h3>
+    </mat-card>
+    <mat-card class="rightSide">
+      <div class="playersLostWon">
+        <h3>Players you've won against:</h3>
+      </div>
+      <div class="playersLostWon">
+        <h3>Players you've lost to:</h3>
+      </div>
+    </mat-card>
+  </div>
 </div>
 
 <ng-template #login>
-    <button mat-raised-button (click)="authService.googleSignIn()">Login with Google</button>
+  <div id="login">
+    <button mat-raised-button (click)="authService.googleSignIn()">
+      Login with Google
+    </button>
+  </div>
 </ng-template>
