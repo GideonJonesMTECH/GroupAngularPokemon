@@ -9,6 +9,10 @@ mat-card {
       flex-grow: 1;
       flex-direction: column;
       text-align: center;
+      p {
+        margin-top: 1em;
+        margin-bottom: -1em;
+      }
       mat-form-field {
         margin: 0.75em;
       }
