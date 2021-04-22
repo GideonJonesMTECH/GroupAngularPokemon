@@ -1,4 +1,4 @@
-<div id="currentPlayer">
+<div *ngIf="playerArr.length > 1" id="currentPlayer">
   <h1>{{ playerArr[currentPlayer].name }}'s turn</h1>
 </div>
 
