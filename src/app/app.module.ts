@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material.module';
 import { MatchingGameComponent } from './components/matching-game/matching-game.component';
-import { LoginComponent } from './components/login/login.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FormsModule } from '@angular/forms';
 
@@ -24,7 +23,6 @@ import { GameSettingsComponent } from './components/game-settings/game-settings.
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     AccountComponent,
     MatchingGameComponent,
     NavBarComponent,
@@ -47,7 +45,7 @@ import { GameSettingsComponent } from './components/game-settings/game-settings.
         enableFirestoreSync: true, // enable/disable autosync users with firestore
         toastMessageOnAuthSuccess: false, // whether to open/show a snackbar message on auth success - default : true
         toastMessageOnAuthError: false, // whether to open/show a snackbar message on auth error - default : true
-        authGuardFallbackURL: '/login', // url for unauthenticated users - to use in combination with canActivate feature on a route
+        authGuardFallbackURL: '/account', // url for unauthenticated users - to use in combination with canActivate feature on a route
         authGuardLoggedInURL: '/account', // url for authenticated users - to use in combination with canActivate feature on a route
         passwordMaxLength: 60, // `min/max` input parameters in components should be within this range.
         passwordMinLength: 8, // Password length min/max in forms independently of each componenet min/max.
