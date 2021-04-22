@@ -37,7 +37,8 @@
 <ng-template #login>
     <div id="login">
         <mat-card>
-            <button mat-raised-button (click)="authService.googleSignIn()">
+            <img src="../assets/googleLogo.png" alt="google logo">
+            <button mat-raised-button color="primary" (click)="authService.googleSignIn()">
                 Login with Google
             </button>
         </mat-card>
