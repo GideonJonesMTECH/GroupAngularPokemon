@@ -32,29 +32,14 @@
             </div>
         </mat-card>
     </div>
-    <button mat-raised-button (click)="authService.signOut()">Sign Out</button>
-  </mat-card>
-  <div class="gameInfo">
-    <mat-card class="leftSide">
-      <h3>Games played: {{ gamesPlayed }}</h3>
-      <h3>Games won: {{ gamesWon }}</h3>
-      <h3>Games lost: {{ gamesPlayed - gamesWon }}</h3>
-    </mat-card>
-    <mat-card class="rightSide">
-      <div class="playersLostWon">
-        <h3>Players you've won against:</h3>
-      </div>
-      <div class="playersLostWon">
-        <h3>Players you've lost to:</h3>
-      </div>
-    </mat-card>
-  </div>
 </div>
 
 <ng-template #login>
-  <div id="login">
-    <button mat-raised-button (click)="authService.googleSignIn()">
-      Login with Google
-    </button>
-  </div>
+    <div id="login">
+        <mat-card>
+            <button mat-raised-button (click)="authService.googleSignIn()">
+                Login with Google
+            </button>
+        </mat-card>
+    </div>
 </ng-template>
