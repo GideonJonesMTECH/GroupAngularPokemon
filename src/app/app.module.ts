@@ -9,16 +9,16 @@ import { MaterialModule } from './modules/material.module';
 import { MatchingGameComponent } from './components/matching-game/matching-game.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // firebase
 import { environment } from 'src/environments/environment';
-import { AngularFireModule } from "@angular/fire";
+import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountComponent } from './components/account/account.component';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
-
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { GameSettingsComponent } from './components/game-settings/game-settings.
     AccountComponent,
     MatchingGameComponent,
     NavBarComponent,
-    GameSettingsComponent
+    GameSettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +38,7 @@ import { GameSettingsComponent } from './components/game-settings/game-settings.
     AngularFirestoreModule,
     FlexLayoutModule,
     FormsModule,
+    ReactiveFormsModule,
     NgxAuthFirebaseUIModule.forRoot(
       environment.firebase,
       () => 'your_app_name_factory',
@@ -58,7 +59,7 @@ import { GameSettingsComponent } from './components/game-settings/game-settings.
         enableEmailVerification: false, // default: true
         useRawUserCredential: true, // If set to true outputs the UserCredential object instead of firebase.User after login and signup - Default: false
       }
-    )
+    ),
   ],
   providers: [],
   bootstrap: [AppComponent],

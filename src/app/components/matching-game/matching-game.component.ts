@@ -17,6 +17,7 @@ export class MatchingGameComponent implements OnInit {
   playerArr = [
     { name: 'Gideon', score: 0 },
     { name: 'Sam', score: 0 },
+    { name: 'Hayden', score: 0 },
   ];
   roundNumb = 1;
   matchesRemaining = this.matchCount;
