@@ -10,7 +10,7 @@ import { ApiCallService } from 'src/app/services/api-call.service';
 export class MatchingGameComponent implements OnInit {
   constructor(private api: ApiCallService) {}
 
-  matchCount = 4;
+  matchCount = 2;
   matchingCards = [];
   badCards = 0;
   duplicateCards = 0;
@@ -20,7 +20,7 @@ export class MatchingGameComponent implements OnInit {
   ];
   roundNumb = 1;
   matchesRemaining = this.matchCount;
-  currentPlayer = this.playerArr[0].name;
+  currentPlayer = 0;
   selectedCards = [];
   matchedCards = [];
 
@@ -138,6 +138,8 @@ export class MatchingGameComponent implements OnInit {
         ).style.opacity = '0';
         this.matchesRemaining--;
         this.matchedCards.push(id);
+
+        this.playerArr[this.currentPlayer].score++;
       }
 
       this.selectedCards = [];
@@ -145,7 +147,22 @@ export class MatchingGameComponent implements OnInit {
         for (let i = 0; i < this.matchingCards.length; i++) {
           document.getElementById(`lrg${i}`).style.opacity = '0';
         }
-      }, 1500);
+        this.changeTurn();
+      }, 500);
     }
+  }
+
+  changeTurn() {
+    console.log(
+      `${this.playerArr[this.currentPlayer].name} has finished their turn.`
+    );
+    this.currentPlayer++;
+    if (this.currentPlayer == this.playerArr.length) {
+      this.currentPlayer = 0;
+      this.roundNumb++;
+    }
+    console.log(
+      `${this.playerArr[this.currentPlayer].name} needs to start their turn.`
+    );
   }
 }

@@ -1,7 +1,7 @@
 @use "src/styles";
 
 mat-toolbar {
-//   width: 100%;
+  //   width: 100%;
 }
 .flex,
 .link {
@@ -9,6 +9,11 @@ mat-toolbar {
   justify-content: space-between;
   align-items: center;
   padding: 2em;
+  a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+  }
 }
 .link {
   cursor: pointer;
