@@ -78,7 +78,7 @@ export class GameSettingsComponent implements OnInit {
 
   onSpecificPlayerSelect() {
     var checkBoxGroup = document.forms['form_name']['check[]'];
-    var limit = document.getElementById('playerCount').value;
+    var limit = document.getElementById('playerCount');
     for (var i = 0; i < checkBoxGroup.length; i++) {
       checkBoxGroup[i].onclick = function () {
         var checkedcount = 0;
