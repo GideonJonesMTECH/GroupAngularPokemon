@@ -2,6 +2,14 @@
   <h1>{{ playerArr[currentPlayer].name }}'s turn</h1>
 </div>
 
+<div class="finishedPage" *ngIf="matchesRemaining == 0">
+  <h1>Game Over!</h1>
+  <h3 *ngFor="let player of playerArr">
+    {{ player.name }} : {{ player.score }}
+  </h3>
+  <h2>{{ winningPlayer.name }} has won!</h2>
+</div>
+
 <div id="PlayingField">
   <div
     *ngFor="let card of matchingCards; let i = index"
