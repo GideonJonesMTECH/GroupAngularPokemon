@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
 import { AuthService } from 'src/app/services/auth.service';
+import { CurrentUserService } from 'src/app/services/current-user.service';
 
 @Component({
   selector: 'app-game-settings',
@@ -14,7 +15,8 @@ export class GameSettingsComponent implements OnInit {
   constructor(
     private router: Router,
     private afs: AngularFirestore,
-    private authService: AuthService
+    private authService: AuthService,
+    private currentUserService: CurrentUserService
   ) {}
 
   selectedDifficulty = false;
@@ -24,7 +26,7 @@ export class GameSettingsComponent implements OnInit {
   playerForm: FormGroup;
 
   usersArr;
-  currentUser;
+  currentUserId;
 
   ngOnInit(): void {
     this.infoForm = new FormGroup({
@@ -43,13 +45,9 @@ export class GameSettingsComponent implements OnInit {
         this.usersArr = val;
       });
 
-    this.currentUser = firebase.auth().currentUser;
-    console.log(this.currentUser);
-  }
 
-  onSubmit() {
-    console.log('Button Works');
-  }
+    this.currentUserId = this.currentUserService.getUser();
+    console.log(this.currentUserId)
 
   onDifficultySelect() {
     this.selectedDifficulty = true;

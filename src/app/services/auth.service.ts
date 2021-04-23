@@ -6,6 +6,7 @@ import firebase from "firebase/app";
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../interfaces/user';
+import { CurrentUserService } from './current-user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private currentUserService: CurrentUserService
   ) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -33,6 +35,7 @@ export class AuthService {
   async googleSignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
     const credential = await this.afAuth.signInWithPopup(provider);
+    this.currentUserService.setUser(credential.user)
     return this.updateUserData(credential.user);
   }
 
