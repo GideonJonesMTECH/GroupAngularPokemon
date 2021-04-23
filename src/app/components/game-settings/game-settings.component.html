@@ -72,11 +72,16 @@
     <div class="left-side">
       <h3>Select Other Players Here!</h3>
       <div>
-        <ul>
+          <mat-selection-list #players>
+              <mat-list-option *ngFor="let user of usersArr">
+                {{ user.displayName }}
+              </mat-list-option>
+          </mat-selection-list>
+        <!-- <ul>
           <li *ngFor="let user of usersArr">
             {{ user.displayName }}
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </div>
