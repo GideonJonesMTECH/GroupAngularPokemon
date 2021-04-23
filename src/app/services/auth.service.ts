@@ -44,33 +44,84 @@ export class AuthService {
   private updateUserData(user) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
+    let timesWon;
+    let timesLost;
+    let playersWon;
+    let playersLost;
+
+    user.timesWon == null ? timesWon = 0 : timesWon = user.timesWon;
+    user.timesLost == null ? timesLost = 0 : timesLost = user.timesLost;
+    user.playersWon == null ? playersWon = [] : playersWon = user.playersWon;
+    user.playersLost == null ? playersLost = [] : playersLost = user.playersLost;
+
     const data = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
-      photoURL: user.photoURL
+      photoURL: user.photoURL,
+      timesWon: timesWon,
+      timesLost: timesLost,
+      playersWon: playersWon,
+      playersLost: playersLost
     };
 
     return userRef.set(data, { merge: true });
   }
 
-  // GoogleAuth() {
-  //   return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
-  // }
+  grabUser(userId) {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${userId}`);
 
-  // AuthLogin(provider) {
-  //   return this.afAuth.signInWithPopup(provider)
-  //   .then(() => {
-  //     console.log('You have been successfully logged in!')
-  //   }).catch((error) => {
-  //     console.log(error)
-  //   })
-  // }
+    userRef.ref.get()
+      .then((doc) => {
+        if (doc.exists) {
+          let invoice = doc.data();
+          return invoice
+        } else {
+          console.error('No matching invoice found');
+        }
+      })
+  }
 
-  // SignOut() {
-  //   return this.afAuth.signOut().then(() => {
-  //     console.log('You have been successfully signed out!')
-  //   })
-  // }
 
+  // updateStats(user, true, [fred, george])
+  // updateStats(user, false, [fred, george], "Harry")
+  updateStats(user, won, playersAgainst=[], winner = "") {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    let invoice;
+    userRef.ref.get()
+      .then((doc) => {
+        if (doc.exists) {
+          invoice = doc.data();
+        } else {
+          console.error('No matching invoice found');
+        }
+      })
+
+    let timesWon = invoice.timesWon;
+    let timesLost = invoice.timesLost;
+    let playersWon = invoice.playersWon;
+    let playersLost = invoice.playersLost;
+
+
+    if(won) {
+      timesWon++;
+      playersWon.push(...playersAgainst)
+    } else if(!won) {
+      timesLost++;
+      playersLost.push(winner);
+    }
+    const data = {
+      uid: user.uid,
+      email: user.email,
+      photoURL: user.photoURL,
+      displayName: user.displayName,
+      timesWon: timesWon,
+      timesLost: timesLost,
+      playersWon: playersWon,
+      playersLost: playersLost
+    }
+
+    return userRef.set(data, { merge: true });
+  }
 }
+
