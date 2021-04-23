@@ -45,9 +45,9 @@ export class GameSettingsComponent implements OnInit {
         this.usersArr = val;
       });
 
-
     this.currentUserId = this.currentUserService.getUser();
-    console.log(this.currentUserId)
+    console.log(this.currentUserId);
+  }
 
   onDifficultySelect() {
     this.selectedDifficulty = true;
