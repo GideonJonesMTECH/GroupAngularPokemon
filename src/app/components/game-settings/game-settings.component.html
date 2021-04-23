@@ -73,7 +73,9 @@
       <h3>Select Other Players Here!</h3>
       <div>
         <ul>
-          <li>1</li>
+          <li *ngFor="let user of usersArr">
+            {{ user.displayName }}
+          </li>
         </ul>
       </div>
     </div>

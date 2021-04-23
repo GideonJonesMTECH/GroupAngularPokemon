@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import firebase from 'firebase/app';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-game-settings',
@@ -8,12 +11,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./game-settings.component.scss'],
 })
 export class GameSettingsComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private afs: AngularFirestore,
+    private authService: AuthService
+  ) {}
 
   selectedDifficulty = false;
   selectedPlayers = false;
 
   infoForm: FormGroup;
+
+  usersArr;
+  currentUser;
 
   ngOnInit(): void {
     this.infoForm = new FormGroup({
@@ -21,6 +31,14 @@ export class GameSettingsComponent implements OnInit {
       difficulty: new FormControl(),
       cards: new FormControl(),
     });
+
+    this.afs.collection('users').valueChanges()
+      .subscribe(val => {
+        this.usersArr = val;
+      });
+
+    this.currentUser = firebase.auth().currentUser;
+    console.log(this.currentUser)
   }
 
   onSubmit() {
