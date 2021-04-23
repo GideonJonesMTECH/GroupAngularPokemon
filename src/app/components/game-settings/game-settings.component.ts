@@ -23,25 +23,31 @@ export class GameSettingsComponent implements OnInit {
   selectedPlayers = false;
 
   infoForm: FormGroup;
+  playerForm: FormGroup;
 
   usersArr;
   currentUserId;
 
   ngOnInit(): void {
     this.infoForm = new FormGroup({
-      players: new FormControl(),
+      playerCount: new FormControl(),
       difficulty: new FormControl(),
       cards: new FormControl(),
     });
+    this.playerForm = new FormGroup({
+      playerArr: new FormControl(),
+    });
 
-    this.afs.collection('users').valueChanges()
-      .subscribe(val => {
+    this.afs
+      .collection('users')
+      .valueChanges()
+      .subscribe((val) => {
         this.usersArr = val;
       });
 
+
     this.currentUserId = this.currentUserService.getUser();
     console.log(this.currentUserId)
-  }
 
   onDifficultySelect() {
     this.selectedDifficulty = true;
@@ -67,16 +73,22 @@ export class GameSettingsComponent implements OnInit {
       state: { data: this.infoForm.value },
     });
   }
-}
 
-// db.collection("cities").where("capital", "==", true)
-// .get()
-// .then((querySnapshot) => {
-//     querySnapshot.forEach((doc) => {
-//         // doc.data() is never undefined for query doc snapshots
-//         console.log(doc.id, " => ", doc.data());
-//     });
-// })
-// .catch((error) => {
-//     console.log("Error getting documents: ", error);
-// });
+  onSpecificPlayerSelect() {
+    var checkBoxGroup = document.forms['form_name']['check[]'];
+    var limit = document.getElementById('playerCount');
+    for (var i = 0; i < checkBoxGroup.length; i++) {
+      checkBoxGroup[i].onclick = function () {
+        var checkedcount = 0;
+        for (var i = 0; i < checkBoxGroup.length; i++) {
+          checkedcount += checkBoxGroup[i].checked ? 1 : 0;
+        }
+        if (checkedcount > limit) {
+          console.log('You can select maximum of ' + limit + ' checkboxes.');
+          alert('You can select maximum of ' + limit + ' checkboxes.');
+          this.checked = false;
+        }
+      };
+    }
+  }
+}
