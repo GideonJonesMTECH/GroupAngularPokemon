@@ -44,16 +44,6 @@ export class AuthService {
   private updateUserData(user) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-    userRef.ref.get()
-      .then((doc) => {
-        if (doc.exists) {
-          let invoice = doc.data();
-          console.log(invoice)
-        } else {
-          console.error('No matching invoice found');
-        }
-      })
-
     let timesWon;
     let timesLost;
     let playersWon;
@@ -78,30 +68,60 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 
-  private updateStats(user) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
-    let timesWon;
-    let timesLost;
+  grabUser(userId) {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${userId}`);
 
     userRef.ref.get()
       .then((doc) => {
         if (doc.exists) {
           let invoice = doc.data();
-          console.log(invoice)
+          return invoice
+        } else {
+          console.error('No matching invoice found');
+        }
+      })
+  }
+
+
+  // updateStats(user, true, [fred, george])
+  // updateStats(user, false, [fred, george], "Harry")
+  updateStats(user, won, playersAgainst=[], winner = "") {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    let invoice;
+    userRef.ref.get()
+      .then((doc) => {
+        if (doc.exists) {
+          invoice = doc.data();
         } else {
           console.error('No matching invoice found');
         }
       })
 
-    if (user.won == true) {
-      timesWon++
-    }
+    let timesWon = invoice.timesWon;
+    let timesLost = invoice.timesLost;
+    let playersWon = invoice.playersWon;
+    let playersLost = invoice.playersLost;
 
+
+    if(won) {
+      timesWon++;
+      playersWon.push(...playersAgainst)
+    } else if(!won) {
+      timesLost++;
+      playersLost.push(winner);
+    }
     const data = {
+      uid: user.uid,
+      email: user.email,
+      photoURL: user.photoURL,
+      displayName: user.displayName,
       timesWon: timesWon,
       timesLost: timesLost,
+      playersWon: playersWon,
+      playersLost: playersLost
     }
-  }
 
+    return userRef.set(data, { merge: true });
+  }
 }
+
