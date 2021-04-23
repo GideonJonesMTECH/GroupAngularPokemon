@@ -25,6 +25,7 @@ export class MatchingGameComponent implements OnInit {
   currentPlayer = 0;
   selectedCards = [];
   matchedCards = [];
+  winningPlayer = {};
 
   ngOnInit(): void {
     console.log(this.formReturn);
@@ -166,6 +167,15 @@ export class MatchingGameComponent implements OnInit {
   }
 
   changeTurn() {
+    if (this.matchesRemaining == 0) {
+      let i = this.indexOfMax(this.playerArr);
+      this.winningPlayer = this.playerArr[i];
+      let otherPlayers = this.playerArr.filter(
+        (item) => item !== this.winningPlayer
+      );
+      this.endGame(this.winningPlayer, otherPlayers);
+    }
+
     console.log(
       `${this.playerArr[this.currentPlayer].name} has finished their turn.`
     );
@@ -177,5 +187,29 @@ export class MatchingGameComponent implements OnInit {
     console.log(
       `${this.playerArr[this.currentPlayer].name} needs to start their turn.`
     );
+  }
+
+  indexOfMax(arr) {
+    if (arr.length === 0) {
+      return -1;
+    }
+
+    var max = arr[0].score;
+    var maxIndex = 0;
+
+    for (var i = 1; i < arr.length; i++) {
+      if (arr[i] > max) {
+        maxIndex = i;
+        max = arr.score[i];
+      }
+    }
+
+    return maxIndex;
+  }
+
+  endGame(winningPlayer, otherPlayers) {
+    console.log(`The Winner`, winningPlayer);
+    console.log(`The Losers`, otherPlayers);
+    //call update stats from auth.service
   }
 }
