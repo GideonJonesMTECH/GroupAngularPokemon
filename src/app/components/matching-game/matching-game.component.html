@@ -10,7 +10,7 @@
   <h2>{{ winningPlayer.name }} has won!</h2>
 </div>
 
-<div id="PlayingField">
+<div id="PlayingField" *ngIf="matchesRemaining > 0">
   <div
     *ngFor="let card of matchingCards; let i = index"
     class="matchingTile"
