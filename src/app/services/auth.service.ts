@@ -44,33 +44,64 @@ export class AuthService {
   private updateUserData(user) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
+    userRef.ref.get()
+      .then((doc) => {
+        if (doc.exists) {
+          let invoice = doc.data();
+          console.log(invoice)
+        } else {
+          console.error('No matching invoice found');
+        }
+      })
+
+    let timesWon;
+    let timesLost;
+    let playersWon;
+    let playersLost;
+
+    user.timesWon == null ? timesWon = 0 : timesWon = user.timesWon;
+    user.timesLost == null ? timesLost = 0 : timesLost = user.timesLost;
+    user.playersWon == null ? playersWon = [] : playersWon = user.playersWon;
+    user.playersLost == null ? playersLost = [] : playersLost = user.playersLost;
+
     const data = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
-      photoURL: user.photoURL
+      photoURL: user.photoURL,
+      timesWon: timesWon,
+      timesLost: timesLost,
+      playersWon: playersWon,
+      playersLost: playersLost
     };
 
     return userRef.set(data, { merge: true });
   }
 
-  // GoogleAuth() {
-  //   return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
-  // }
+  private updateStats(user) {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-  // AuthLogin(provider) {
-  //   return this.afAuth.signInWithPopup(provider)
-  //   .then(() => {
-  //     console.log('You have been successfully logged in!')
-  //   }).catch((error) => {
-  //     console.log(error)
-  //   })
-  // }
+    let timesWon;
+    let timesLost;
 
-  // SignOut() {
-  //   return this.afAuth.signOut().then(() => {
-  //     console.log('You have been successfully signed out!')
-  //   })
-  // }
+    userRef.ref.get()
+      .then((doc) => {
+        if (doc.exists) {
+          let invoice = doc.data();
+          console.log(invoice)
+        } else {
+          console.error('No matching invoice found');
+        }
+      })
+
+    if (user.won == true) {
+      timesWon++
+    }
+
+    const data = {
+      timesWon: timesWon,
+      timesLost: timesLost,
+    }
+  }
 
 }

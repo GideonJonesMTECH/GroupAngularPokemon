@@ -5,6 +5,8 @@ export interface User {
     displayName?: string;
 
     // game info
+    timesWon?: number;
+    timesLost?: number;
     playersWon?: Array<string>;
     playersLost?: Array<string>;
 }
