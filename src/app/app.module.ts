@@ -19,6 +19,9 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountComponent } from './components/account/account.component';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
+import firebase from 'firebase/app';
+
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [
