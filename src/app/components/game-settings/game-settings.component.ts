@@ -61,6 +61,7 @@ export class GameSettingsComponent implements OnInit {
   onPlayerSelect() {
     this.selectedPlayers = true;
     console.log('Players selected');
+    console.log(this.infoForm.value);
     if (this.selectedDifficulty && this.selectedPlayers) {
       let courseButton = document.getElementById('gamePlayButton');
       courseButton.removeAttribute('disabled');
@@ -75,20 +76,7 @@ export class GameSettingsComponent implements OnInit {
   }
 
   onSpecificPlayerSelect() {
-    var checkBoxGroup = document.forms['form_name']['check[]'];
-    var limit = document.getElementById('playerCount');
-    for (var i = 0; i < checkBoxGroup.length; i++) {
-      checkBoxGroup[i].onclick = function () {
-        var checkedcount = 0;
-        for (var i = 0; i < checkBoxGroup.length; i++) {
-          checkedcount += checkBoxGroup[i].checked ? 1 : 0;
-        }
-        if (checkedcount > limit) {
-          console.log('You can select maximum of ' + limit + ' checkboxes.');
-          alert('You can select maximum of ' + limit + ' checkboxes.');
-          this.checked = false;
-        }
-      };
-    }
+    let playerCount = this.infoForm.value.playerCount as number;
+    console.log(playerCount);
   }
 }
