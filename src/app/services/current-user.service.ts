@@ -11,10 +11,10 @@ export class CurrentUserService {
 
   setUser(user) {
     // this.user = user;
-    sessionStorage.setItem('currentUserId', user.uid)
+    localStorage.setItem('currentUserId', user.uid)
   }
 
   getUser() {
-    return sessionStorage.getItem('currentUserId');
+    return localStorage.getItem('currentUserId');
   }
 }
