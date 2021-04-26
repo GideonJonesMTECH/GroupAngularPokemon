@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiReturn } from 'src/app/interfaces/api-return';
 import { ApiCallService } from 'src/app/services/api-call.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-matching-game',
@@ -11,7 +12,11 @@ import { ApiCallService } from 'src/app/services/api-call.service';
 export class MatchingGameComponent implements OnInit {
   formReturn;
 
-  constructor(private api: ApiCallService, private router: Router) {
+  constructor(
+    private api: ApiCallService,
+    private router: Router,
+    private authService: AuthService
+  ) {
     this.formReturn = this.router.getCurrentNavigation().extras.state.data;
   }
 
@@ -45,7 +50,7 @@ export class MatchingGameComponent implements OnInit {
       this.setup(returnData.data);
     });
     for (let i = 0; i < this.formReturn.playerCount; i++) {
-      this.playerArr.push({ name: 'Dummy', score: 0 });
+      this.playerArr.push({ name: `Dummy${i}`, score: 0 });
     }
   }
 
@@ -159,7 +164,8 @@ export class MatchingGameComponent implements OnInit {
       this.selectedCards = [];
       setTimeout(() => {
         for (let i = 0; i < this.matchingCards.length; i++) {
-          document.getElementById(`lrg${i}`).style.opacity = '0';
+          if (document.getElementById(`lrg${i}`))
+            document.getElementById(`lrg${i}`).style.opacity = '0';
         }
         this.changeTurn();
       }, 500);
@@ -170,23 +176,20 @@ export class MatchingGameComponent implements OnInit {
     if (this.matchesRemaining == 0) {
       let i = this.indexOfMax(this.playerArr);
       this.winningPlayer = this.playerArr[i];
-      let otherPlayers = this.playerArr.filter(
-        (item) => item !== this.winningPlayer
+      this.endGame(i, [...this.playerArr]);
+    } else {
+      console.log(
+        `${this.playerArr[this.currentPlayer].name} has finished their turn.`
       );
-      this.endGame(this.winningPlayer, otherPlayers);
+      this.currentPlayer++;
+      if (this.currentPlayer == this.playerArr.length) {
+        this.currentPlayer = 0;
+        this.roundNumb++;
+      }
+      console.log(
+        `${this.playerArr[this.currentPlayer].name} needs to start their turn.`
+      );
     }
-
-    console.log(
-      `${this.playerArr[this.currentPlayer].name} has finished their turn.`
-    );
-    this.currentPlayer++;
-    if (this.currentPlayer == this.playerArr.length) {
-      this.currentPlayer = 0;
-      this.roundNumb++;
-    }
-    console.log(
-      `${this.playerArr[this.currentPlayer].name} needs to start their turn.`
-    );
   }
 
   indexOfMax(arr) {
@@ -198,18 +201,38 @@ export class MatchingGameComponent implements OnInit {
     var maxIndex = 0;
 
     for (var i = 1; i < arr.length; i++) {
-      if (arr[i] > max) {
+      if (arr[i].score > max) {
         maxIndex = i;
-        max = arr.score[i];
+        max = arr[i].score;
       }
     }
 
     return maxIndex;
   }
 
-  endGame(winningPlayer, otherPlayers) {
-    console.log(`The Winner`, winningPlayer);
-    console.log(`The Losers`, otherPlayers);
+  endGame(winningPlayerIndex, losingPlayers) {
+    console.log(`The Winner`, this.winningPlayer);
+    if (winningPlayerIndex == 0) {
+      losingPlayers.shift();
+    } else {
+      losingPlayers.splice(winningPlayerIndex, 1);
+    }
+    console.log(`The Losers:`, losingPlayers);
+
+    // this.authService.updateStats(this.winningPlayer.uid, true, losingPlayers);
+    for (let i = 0; i < losingPlayers.length; i++) {
+      let playersAgainst = [...losingPlayers];
+      if (i == 0) {
+        playersAgainst.shift();
+        playersAgainst.push(this.winningPlayer);
+      } else {
+        playersAgainst.splice(i, 1, this.winningPlayer);
+      }
+      console.log(losingPlayers[i]);
+      console.log('vs');
+      console.log(playersAgainst);
+      //this.authService.updateStats(losingPlayers[i].uid, false, otherPlayers, this.winningPlayer.name)
+    }
     //call update stats from auth.service
   }
 }
