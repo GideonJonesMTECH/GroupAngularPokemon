@@ -34,6 +34,7 @@ export class MatchingGameComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.formReturn);
+    console.log(this.formReturn.players);
     this.matchCount = (this.formReturn.difficulty as unknown) as number;
     this.matchesRemaining = this.matchCount;
 
@@ -49,8 +50,13 @@ export class MatchingGameComponent implements OnInit {
       let returnData = data as ApiReturn;
       this.setup(returnData.data);
     });
-    for (let i = 0; i < this.formReturn.playerCount; i++) {
-      this.playerArr.push({ name: `Dummy${i}`, score: 0 });
+    // for (let i = 0; i < this.formReturn.playerCount; i++) {
+    //   this.playerArr.push({ name: `Dummy${i}`, score: 0 });
+    // }
+    for (let i = 0; i < this.formReturn.players.length; i++) {
+      let userData = this.authService.getUserById(this.formReturn.players[i]);
+      console.log(userData);
+      // this.playerArr.push({ name: userData.name, score: 0 });
     }
   }
 
@@ -231,8 +237,10 @@ export class MatchingGameComponent implements OnInit {
       console.log(losingPlayers[i]);
       console.log('vs');
       console.log(playersAgainst);
-      //this.authService.updateStats(losingPlayers[i].uid, false, otherPlayers, this.winningPlayer.name)
+
+      if (!losingPlayers[i].guest) {
+        //this.authService.updateStats(losingPlayers[i].uid, false, otherPlayers, this.winningPlayer.name)
+      }
     }
-    //call update stats from auth.service
   }
 }
