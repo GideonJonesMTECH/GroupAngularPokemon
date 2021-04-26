@@ -44,7 +44,7 @@ export class MatchingGameComponent implements OnInit {
       let returnData = data as ApiReturn;
       this.setup(returnData.data);
     });
-    for (let i = 0; i < this.formReturn.players; i++) {
+    for (let i = 0; i < this.formReturn.playerCount; i++) {
       this.playerArr.push({ name: 'Dummy', score: 0 });
     }
   }

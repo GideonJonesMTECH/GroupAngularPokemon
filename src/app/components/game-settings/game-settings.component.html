@@ -13,7 +13,7 @@
                 formControlName="playerCount"
                 id="playerCount"
               >
-                <mat-option>-=-=-</mat-option>
+                <!-- <mat-option>-=-=-</mat-option> -->
                 <mat-option value="1">1</mat-option>
                 <mat-option value="2">2</mat-option>
                 <mat-option value="3">3</mat-option>
@@ -30,7 +30,7 @@
                 formControlName="difficulty"
                 (selectionChange)="onDifficultySelect()"
               >
-                <mat-option>-=-=-</mat-option>
+                <!-- <mat-option>-=-=-</mat-option> -->
                 <mat-option value="1">Baby Mode - 1</mat-option>
                 <mat-option value="5">Easy - 5</mat-option>
                 <mat-option value="8">Medium - 8</mat-option>
@@ -89,30 +89,7 @@
             </span>
           </mat-selection-list>
         </div>
-        <!-- <ul>
-          <li *ngFor="let user of usersArr">
-            {{ user.displayName }}
-          </li>
-        </ul> -->
       </div>
     </div>
   </div>
 </mat-card>
-
-<!-- function checkBoxLimit() {
-	var checkBoxGroup = document.forms['form_name']['check[]'];			
-	var limit = 2;
-	for (var i = 0; i < checkBoxGroup.length; i++) {
-		checkBoxGroup[i].onclick = function() {
-			var checkedcount = 0;
-			for (var i = 0; i < checkBoxGroup.length; i++) {
-				checkedcount += (checkBoxGroup[i].checked) ? 1 : 0;
-			}
-			if (checkedcount > limit) {
-				console.log("You can select maximum of " + limit + " checkboxes.");
-				alert("You can select maximum of " + limit + " checkboxes.");						
-				this.checked = false;
-			}
-		}
-	}
-} -->
