@@ -13,7 +13,6 @@
                 formControlName="playerCount"
                 id="playerCount"
               >
-                <mat-option>-=-=-</mat-option>
                 <mat-option value="1">1</mat-option>
                 <mat-option value="2">2</mat-option>
                 <mat-option value="3">3</mat-option>
@@ -30,7 +29,6 @@
                 formControlName="difficulty"
                 (selectionChange)="onDifficultySelect()"
               >
-                <mat-option>-=-=-</mat-option>
                 <mat-option value="1">Baby Mode - 1</mat-option>
                 <mat-option value="5">Easy - 5</mat-option>
                 <mat-option value="8">Medium - 8</mat-option>
@@ -89,11 +87,6 @@
             </span>
           </mat-selection-list>
         </div>
-        <!-- <ul>
-          <li *ngFor="let user of usersArr">
-            {{ user.displayName }}
-          </li>
-        </ul> -->
       </div>
     </div>
   </div>
