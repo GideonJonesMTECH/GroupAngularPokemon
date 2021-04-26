@@ -9,9 +9,9 @@
     </mat-card>
     <div class="gameInfo">
         <mat-card class="leftSide">
-            <h2>Games played: {{ gamesPlayed }}</h2>
+            <h2>Games played: {{ gamesWon + gamesLost }}</h2>
             <h2>Games won: {{ gamesWon }}</h2>
-            <h2>Games lost: {{ gamesPlayed - gamesWon }}</h2>
+            <h2>Games lost: {{ gamesLost }}</h2>
         </mat-card>
         <mat-card class="rightSide">
             <div class="playersLostWon">

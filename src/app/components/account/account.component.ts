@@ -8,16 +8,22 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AccountComponent implements OnInit {
 
-  gamesPlayed = 5;
-  gamesWon = 2;
-  playersWon = ['Gideon', 'Hayden'];
-  playersLost = ['Gideon', 'Hayden'];
+  gamesWon: number;
+  gamesLost: number;
+  playersWon;
+  playersLost;
 
   constructor(
     public authService: AuthService
   ) { }
 
   ngOnInit(): void {
+    this.authService.user$.subscribe(doc => {
+      this.gamesWon = doc.timesWon;
+      this.gamesLost = doc.timesLost;
+      this.playersWon = doc.playersWon;
+      this.playersLost = doc.playersLost;
+    })
   }
 
 }
