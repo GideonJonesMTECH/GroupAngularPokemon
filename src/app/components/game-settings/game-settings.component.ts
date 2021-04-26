@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import firebase from 'firebase/app';
 import { AuthService } from 'src/app/services/auth.service';
 import { CurrentUserService } from 'src/app/services/current-user.service';
 
@@ -15,8 +14,8 @@ export class GameSettingsComponent implements OnInit {
   constructor(
     private router: Router,
     private afs: AngularFirestore,
-    private authService: AuthService,
-    private currentUserService: CurrentUserService
+    private currentUserService: CurrentUserService,
+    private authService: AuthService
   ) {}
 
   selectedDifficulty = false;
@@ -46,7 +45,9 @@ export class GameSettingsComponent implements OnInit {
       });
 
     this.currentUserId = this.currentUserService.getUser();
-    console.log(this.currentUserId);
+    if (this.currentUserId == null) {
+      this.authService.signOut()
+    }
   }
 
   onDifficultySelect() {
