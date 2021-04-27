@@ -68,3 +68,23 @@
         }
     }
 }
+
+@media (max-width: 600px) {
+
+    .gameInfo {
+        flex-direction: column;
+
+        .rightSide {
+            width: auto;
+        }
+    }
+
+}
+
+@media (max-width: 450px) {
+
+    .accountInfo {
+        flex-direction: column;
+    }
+
+}
