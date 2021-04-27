@@ -80,30 +80,29 @@ export class AuthService {
   }
 
   updateStats(user, won, playersAgainst = [], winner = '') {
+    console.log(
+      `${user.displayName}. Won? ${won}. Against? ${playersAgainst}. Winner? ${winner}`
+    );
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
-    let invoice;
-    userRef.ref.get().then((doc) => {
-      if (doc.exists) {
-        invoice = doc.data();
-      } else {
-        console.error('No matching invoice found');
-      }
-    });
 
-    let timesWon = invoice.timesWon;
-    let timesLost = invoice.timesLost;
-    let playersWon = invoice.playersWon;
-    let playersLost = invoice.playersLost;
+    let timesWon = user.timesWon;
+    let timesLost = user.timesLost;
+    let playersWon = user.playersWon;
+    let playersLost = user.playersLost;
 
     if (won) {
       timesWon++;
-      playersWon.push(...playersAgainst);
+      for (let i = 0; i < playersAgainst.length; i++) {
+        playersWon.push(playersAgainst[i].name);
+      }
+      // playersWon.push(...playersAgainst.name);
     } else if (!won) {
       timesLost++;
       playersLost.push(winner);
     }
+
     const data = {
       uid: user.uid,
       email: user.email,
@@ -119,14 +118,16 @@ export class AuthService {
   }
 
   async getUserById(userId) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${userId}`);
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(
+      `users/${userId}`
+    );
 
     const doc = await userRef.ref.get();
 
     if (doc.exists) {
       return doc.data();
     } else {
-      console.log('Document does not exist!')
+      console.log('Document does not exist!');
     }
   }
 }

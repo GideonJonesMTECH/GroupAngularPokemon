@@ -16,7 +16,7 @@ export class GameSettingsComponent implements OnInit {
     private afs: AngularFirestore,
     private currentUserService: CurrentUserService,
     private authService: AuthService
-  ) { }
+  ) {}
 
   selectedDifficulty = false;
   selectedPlayers = false;
@@ -80,10 +80,10 @@ export class GameSettingsComponent implements OnInit {
   onSpecificPlayerSelect() {
     let playerCount = this.infoForm.value.playerCount as number;
     console.log(playerCount);
-    this.selectedPlayersNum ++;
+    this.selectedPlayersNum++;
     console.log(this.availablePlayers);
     console.log(this.selectedPlayersNum);
-    
+
     // for (let i = playerCount - 1; i > 0; i++) {
     //   console.log(`test ${i}`);
     //   let checkbox = document.getElementById(`checkBoxes${i}`);
