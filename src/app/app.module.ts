@@ -20,6 +20,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountComponent } from './components/account/account.component';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 import firebase from 'firebase/app';
+import { CompareComponent } from './components/compare/compare.component';
 
 firebase.initializeApp(environment.firebase);
 
@@ -30,6 +31,7 @@ firebase.initializeApp(environment.firebase);
     MatchingGameComponent,
     NavBarComponent,
     GameSettingsComponent,
+    CompareComponent,
   ],
   imports: [
     BrowserModule,
