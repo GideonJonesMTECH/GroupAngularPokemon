@@ -68,7 +68,7 @@
         </form>
       </div>
     </div>
-    <div class="left-side">
+    <div class="left-side" *ngIf="selectedPlayers">
       <h3>Select Other Players Here!</h3>
       <div>
         <form [formGroup]="infoForm">
@@ -77,12 +77,15 @@
               #players
               (selectionChange)="onSpecificPlayerSelect()"
               formControlName="players"
+              id="playerNames"
             >
-              <span *ngFor="let user of usersArr">
+              <span *ngFor="let user of usersArr; let i = index">
                 <mat-list-option
                   *ngIf="user.uid != currentUserId"
                   value="{{ user.uid }}"
                   name="check[]"
+                  [disabled]="selectedPlayersNum == availablePlayers"
+                  id="checkBoxes{{i + 1}}"
                 >
                   {{ user.displayName }}
                 </mat-list-option>

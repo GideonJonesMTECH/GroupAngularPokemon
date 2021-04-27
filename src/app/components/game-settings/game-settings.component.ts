@@ -16,7 +16,7 @@ export class GameSettingsComponent implements OnInit {
     private afs: AngularFirestore,
     private currentUserService: CurrentUserService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   selectedDifficulty = false;
   selectedPlayers = false;
@@ -26,6 +26,8 @@ export class GameSettingsComponent implements OnInit {
 
   usersArr;
   currentUserId;
+  availablePlayers;
+  selectedPlayersNum = 0;
 
   ngOnInit(): void {
     this.infoForm = new FormGroup({
@@ -61,6 +63,7 @@ export class GameSettingsComponent implements OnInit {
     this.selectedPlayers = true;
     console.log('Players selected');
     console.log(this.infoForm.value);
+    this.availablePlayers = this.infoForm.value.playerCount - 1;
     if (this.selectedDifficulty && this.selectedPlayers) {
       let courseButton = document.getElementById('gamePlayButton');
       courseButton.removeAttribute('disabled');
@@ -77,5 +80,14 @@ export class GameSettingsComponent implements OnInit {
   onSpecificPlayerSelect() {
     let playerCount = this.infoForm.value.playerCount as number;
     console.log(playerCount);
+    this.selectedPlayersNum ++;
+    console.log(this.availablePlayers);
+    console.log(this.selectedPlayersNum);
+    
+    // for (let i = playerCount - 1; i > 0; i++) {
+    //   console.log(`test ${i}`);
+    //   let checkbox = document.getElementById(`checkBoxes${i}`);
+    //   checkbox.removeAttribute('disabled');
+    // }
   }
 }
