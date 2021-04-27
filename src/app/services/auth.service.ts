@@ -109,23 +109,5 @@ export class AuthService {
 
     return userRef.set(data, { merge: true });
   }
-
-  getUserById(userId) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${userId}`);
-
-    let invoice;
-
-    userRef.ref.get()
-      .then((doc) => {
-        if (doc.exists) {
-          // console.log(doc.data())
-          invoice = doc.data()
-        } else {
-          console.error('No matching invoice found');
-        }
-      })
-
-    console.log(invoice)
-  }
 }
 

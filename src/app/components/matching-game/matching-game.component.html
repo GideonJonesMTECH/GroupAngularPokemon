@@ -1,42 +1,40 @@
-<div *ngIf="playerArr.length > 1" id="currentPlayer">
-  <h1>{{ playerArr[currentPlayer].name }}'s turn</h1>
+<div *ngIf="matchingCards.length > 1; else spinner">
+  <div *ngIf="playerArr.length > 1" id="currentPlayer">
+    <h1>{{ playerArr[currentPlayer].name }}'s turn</h1>
+  </div>
+
+  <div class="finishedPage" *ngIf="matchesRemaining == 0">
+    <h1>Game Over!</h1>
+    <h3 *ngFor="let player of playerArr">
+      {{ player.name }} : {{ player.score }}
+    </h3>
+    <h2>{{ winningPlayer.name }} has won!</h2>
+  </div>
+
+  <div id="PlayingField" *ngIf="matchesRemaining > 0">
+    <div *ngFor="let card of matchingCards; let i = index" class="matchingTile" (click)="onCardSelect(card.id, i)"
+      id="{{ i }}Card">
+      <img class="smlImg" src="{{ card.smlImg }}" id="sml{{ i }}" />
+      <img class="backImg" src="../../../assets/pokemonCardBack.png" id="back{{ i }}" />
+      <img class="lrgImg" src="{{ card.lrgImg }}" id="lrg{{ i }}" />
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <h1>Round: {{ roundNumb }}</h1>
+    </div>
+    <div *ngFor="let player of playerArr">
+      <h1>{{ player.name }} Score: {{ player.score }}</h1>
+    </div>
+    <div>
+      <h1>Matches Left: {{ matchesRemaining }}</h1>
+    </div>
+  </footer>
 </div>
 
-<div class="finishedPage" *ngIf="matchesRemaining == 0">
-  <h1>Game Over!</h1>
-  <h3 *ngFor="let player of playerArr">
-    {{ player.name }} : {{ player.score }}
-  </h3>
-  <h2>{{ winningPlayer.name }} has won!</h2>
-</div>
-
-<div id="PlayingField" *ngIf="matchesRemaining > 0">
-  <div
-    *ngFor="let card of matchingCards; let i = index"
-    class="matchingTile"
-    (click)="onCardSelect(card.id, i)"
-    id="{{ i }}Card"
-  >
-    <img class="smlImg" src="{{ card.smlImg }}" id="sml{{ i }}" />
-    <img
-      class="backImg"
-      src="../../../assets/pokemonCardBack.png"
-      id="back{{ i }}"
-    />
-    <img class="lrgImg" src="{{ card.lrgImg }}" id="lrg{{ i }}" />
+<ng-template #spinner>
+  <div class="spinnerDiv">
+    <mat-spinner></mat-spinner>
   </div>
-</div>
-
-<footer>
-  <div>
-    <h1>Round: {{ roundNumb }}</h1>
-  </div>
-  <div *ngFor="let player of playerArr">
-    <h1>{{ player.name }} Score: {{ player.score }}</h1>
-  </div>
-  <div>
-    <h1>Matches Left: {{ matchesRemaining }}</h1>
-  </div>
-</footer>
-
-<!-- TODO: Thursday: turn system, score, and finishing screen (play again or redirect to stats?) -->
+</ng-template>
