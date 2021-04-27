@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ApiReturn } from 'src/app/interfaces/api-return';
 import { ApiCallService } from 'src/app/services/api-call.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CurrentUserService } from 'src/app/services/current-user.service';
 
 @Component({
   selector: 'app-matching-game',
@@ -15,7 +16,8 @@ export class MatchingGameComponent implements OnInit {
   constructor(
     private api: ApiCallService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private currentUserService: CurrentUserService
   ) {
     this.formReturn = this.router.getCurrentNavigation().extras.state.data;
   }
@@ -30,9 +32,9 @@ export class MatchingGameComponent implements OnInit {
   currentPlayer = 0;
   selectedCards = [];
   matchedCards = [];
-  winningPlayer = {};
+  winningPlayer = { name: '', score: 0, uid: '' };
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     console.log(this.formReturn);
     console.log(this.formReturn.players);
     this.matchCount = (this.formReturn.difficulty as unknown) as number;
@@ -50,13 +52,26 @@ export class MatchingGameComponent implements OnInit {
       let returnData = data as ApiReturn;
       this.setup(returnData.data);
     });
-    // for (let i = 0; i < this.formReturn.playerCount; i++) {
-    //   this.playerArr.push({ name: `Dummy${i}`, score: 0 });
-    // }
-    for (let i = 0; i < this.formReturn.players.length; i++) {
-      let userData = this.authService.getUserById(this.formReturn.players[i]);
-      console.log(userData);
-      // this.playerArr.push({ name: userData.name, score: 0 });
+    let currentUser = await this.authService.getUserById(
+      this.currentUserService.getUser()
+    );
+    this.playerArr.push({
+      name: currentUser.displayName,
+      score: 0,
+      uid: currentUser.uid,
+    });
+    if (this.formReturn.playerCount > 1) {
+      for (let i = 0; i < this.formReturn.players.length; i++) {
+        let userData = await this.authService.getUserById(
+          this.formReturn.players[i]
+        );
+        console.log(userData);
+        this.playerArr.push({
+          name: userData.displayName,
+          score: 0,
+          uid: userData.uid,
+        });
+      }
     }
   }
 
@@ -216,7 +231,7 @@ export class MatchingGameComponent implements OnInit {
     return maxIndex;
   }
 
-  endGame(winningPlayerIndex, losingPlayers) {
+  async endGame(winningPlayerIndex, losingPlayers) {
     console.log(`The Winner`, this.winningPlayer);
     if (winningPlayerIndex == 0) {
       losingPlayers.shift();
@@ -225,7 +240,11 @@ export class MatchingGameComponent implements OnInit {
     }
     console.log(`The Losers:`, losingPlayers);
 
-    // this.authService.updateStats(this.winningPlayer.uid, true, losingPlayers);
+    this.authService.updateStats(
+      await this.authService.getUserById(this.winningPlayer.uid),
+      true,
+      losingPlayers
+    );
     for (let i = 0; i < losingPlayers.length; i++) {
       let playersAgainst = [...losingPlayers];
       if (i == 0) {
@@ -239,7 +258,12 @@ export class MatchingGameComponent implements OnInit {
       console.log(playersAgainst);
 
       if (!losingPlayers[i].guest) {
-        //this.authService.updateStats(losingPlayers[i].uid, false, otherPlayers, this.winningPlayer.name)
+        this.authService.updateStats(
+          await this.authService.getUserById(losingPlayers[i].uid),
+          false,
+          playersAgainst,
+          this.winningPlayer.name
+        );
       }
     }
   }
