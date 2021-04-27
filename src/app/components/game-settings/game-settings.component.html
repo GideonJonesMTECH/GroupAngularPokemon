@@ -71,22 +71,25 @@
     <div class="left-side">
       <h3>Select Other Players Here!</h3>
       <div>
-        <div id="checkBoxGroup">
-          <mat-selection-list
-            #players
-            (selectionChange)="onSpecificPlayerSelect()"
-          >
-            <span *ngFor="let user of usersArr">
-              <mat-list-option
-                *ngIf="user.uid != currentUserId"
-                value="{{ user }}"
-                name="check[]"
-              >
-                {{ user.displayName }}
-              </mat-list-option>
-            </span>
-          </mat-selection-list>
-        </div>
+        <form [formGroup]="infoForm">
+          <div id="checkBoxGroup">
+            <mat-selection-list
+              #players
+              (selectionChange)="onSpecificPlayerSelect()"
+              formControlName="players"
+            >
+              <span *ngFor="let user of usersArr">
+                <mat-list-option
+                  *ngIf="user.uid != currentUserId"
+                  value="{{ user.uid }}"
+                  name="check[]"
+                >
+                  {{ user.displayName }}
+                </mat-list-option>
+              </span>
+            </mat-selection-list>
+          </div>
+        </form>
       </div>
     </div>
   </div>

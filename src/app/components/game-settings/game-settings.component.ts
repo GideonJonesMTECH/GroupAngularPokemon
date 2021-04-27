@@ -32,9 +32,7 @@ export class GameSettingsComponent implements OnInit {
       playerCount: new FormControl(),
       difficulty: new FormControl(),
       cards: new FormControl(),
-    });
-    this.playerForm = new FormGroup({
-      playerArr: new FormControl(),
+      players: new FormControl(),
     });
 
     this.afs
@@ -46,7 +44,7 @@ export class GameSettingsComponent implements OnInit {
 
     this.currentUserId = this.currentUserService.getUser();
     if (this.currentUserId == null) {
-      this.authService.signOut()
+      this.authService.signOut();
     }
   }
 
