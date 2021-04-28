@@ -84,8 +84,8 @@
                   *ngIf="user.uid != currentUserId"
                   value="{{ user.uid }}"
                   name="check[]"
-                  [disabled]="selectedPlayersNum == availablePlayers"
-                  id="checkBoxes{{i + 1}}"
+                  [disabled]="selectedPlayersNum >= availablePlayers"
+                  id="checkBoxes{{ i + 1 }}"
                 >
                   {{ user.displayName }}
                 </mat-list-option>

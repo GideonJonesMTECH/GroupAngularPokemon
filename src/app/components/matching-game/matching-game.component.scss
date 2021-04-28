@@ -50,8 +50,8 @@
 
 footer {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
-  height: var(--footerHeight);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -60,6 +60,12 @@ footer {
   align-content: center;
   div {
     padding: 1em;
+  }
+  #bottomFooter {
+    padding: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 

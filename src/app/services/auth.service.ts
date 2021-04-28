@@ -86,9 +86,6 @@ export class AuthService {
   }
 
   updateStats(user, won, playersAgainst = [], winner = '') {
-    console.log(
-      `${user.displayName}. Won? ${won}. Against? ${playersAgainst}. Winner? ${winner}`
-    );
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
@@ -103,7 +100,6 @@ export class AuthService {
       for (let i = 0; i < playersAgainst.length; i++) {
         playersWon.push(playersAgainst[i].name);
       }
-      // playersWon.push(...playersAgainst.name);
     } else if (!won) {
       timesLost++;
       playersLost.push(winner);

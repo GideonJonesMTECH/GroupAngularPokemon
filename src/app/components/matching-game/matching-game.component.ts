@@ -35,20 +35,16 @@ export class MatchingGameComponent implements OnInit {
   winningPlayer = { name: '', score: 0, uid: '' };
 
   async ngOnInit(): Promise<void> {
-    console.log(this.formReturn);
-    console.log(this.formReturn.players);
     this.matchCount = (this.formReturn.difficulty as unknown) as number;
     this.matchesRemaining = this.matchCount;
 
     let pageNumb = 1;
     if (this.formReturn.cards === null) {
-      console.log('Randomly generating page numb');
       pageNumb = this.generateRandomNumber(1, 54);
     } else {
       pageNumb = this.formReturn.cards;
     }
     this.api.apiCall((pageNumb as unknown) as string).subscribe((data) => {
-      console.warn('get API data', data);
       let returnData = data as ApiReturn;
       this.setup(returnData.data);
     });
@@ -65,7 +61,6 @@ export class MatchingGameComponent implements OnInit {
         let userData = await this.authService.getUserById(
           this.formReturn.players[i]
         );
-        console.log(userData);
         this.playerArr.push({
           name: userData.displayName,
           score: 0,
@@ -76,8 +71,6 @@ export class MatchingGameComponent implements OnInit {
   }
 
   setup(data) {
-    console.log(`Match Amount: ${this.matchCount}`);
-    console.log(`Card Amount: ${this.matchCount * 2}`);
     let dataLength = data.length - 1;
     for (let i = 0; i < this.matchCount; i++) {
       this.createNewCard(data, dataLength);
@@ -129,14 +122,9 @@ export class MatchingGameComponent implements OnInit {
     var currentIndex = array.length,
       temporaryValue,
       randomIndex;
-
-    // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-      // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
-
-      // And swap it with the current element.
       temporaryValue = array[currentIndex];
       array[currentIndex] = array[randomIndex];
       array[randomIndex] = temporaryValue;
@@ -150,8 +138,6 @@ export class MatchingGameComponent implements OnInit {
   }
 
   onCardSelect(id, cardNumb) {
-    console.log(id);
-
     for (let i = 0; i < this.matchedCards.length; i++) {
       if (this.matchedCards[0] != null) {
         if (this.matchedCards[i] == id) {
@@ -199,17 +185,11 @@ export class MatchingGameComponent implements OnInit {
       this.winningPlayer = this.playerArr[i];
       this.endGame(i, [...this.playerArr]);
     } else {
-      console.log(
-        `${this.playerArr[this.currentPlayer].name} has finished their turn.`
-      );
       this.currentPlayer++;
       if (this.currentPlayer == this.playerArr.length) {
         this.currentPlayer = 0;
         this.roundNumb++;
       }
-      console.log(
-        `${this.playerArr[this.currentPlayer].name} needs to start their turn.`
-      );
     }
   }
 
@@ -232,13 +212,11 @@ export class MatchingGameComponent implements OnInit {
   }
 
   async endGame(winningPlayerIndex, losingPlayers) {
-    console.log(`The Winner`, this.winningPlayer);
     if (winningPlayerIndex == 0) {
       losingPlayers.shift();
     } else {
       losingPlayers.splice(winningPlayerIndex, 1);
     }
-    console.log(`The Losers:`, losingPlayers);
 
     this.authService.updateStats(
       await this.authService.getUserById(this.winningPlayer.uid),
@@ -253,9 +231,6 @@ export class MatchingGameComponent implements OnInit {
       } else {
         playersAgainst.splice(i, 1, this.winningPlayer);
       }
-      console.log(losingPlayers[i]);
-      console.log('vs');
-      console.log(playersAgainst);
 
       if (!losingPlayers[i].guest) {
         this.authService.updateStats(

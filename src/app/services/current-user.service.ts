@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurrentUserService {
-
   user: any;
 
-  constructor() { }
+  constructor() {}
 
   setUser(user) {
-    // this.user = user;
-    localStorage.setItem('currentUserId', user.uid)
+    localStorage.setItem('currentUserId', user.uid);
   }
 
   getUser() {

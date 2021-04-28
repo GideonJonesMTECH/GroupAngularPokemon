@@ -52,7 +52,6 @@ export class GameSettingsComponent implements OnInit {
 
   onDifficultySelect() {
     this.selectedDifficulty = true;
-    console.log('Difficulty Selected');
     if (this.selectedDifficulty && this.selectedPlayers) {
       let courseButton = document.getElementById('gamePlayButton');
       courseButton.removeAttribute('disabled');
@@ -61,8 +60,6 @@ export class GameSettingsComponent implements OnInit {
 
   onPlayerSelect() {
     this.selectedPlayers = true;
-    console.log('Players selected');
-    console.log(this.infoForm.value);
     this.availablePlayers = this.infoForm.value.playerCount - 1;
     if (this.selectedDifficulty && this.selectedPlayers) {
       let courseButton = document.getElementById('gamePlayButton');
@@ -71,23 +68,12 @@ export class GameSettingsComponent implements OnInit {
   }
 
   onFormSubmit(formvalue) {
-    console.log(formvalue);
     this.router.navigateByUrl('/game', {
       state: { data: this.infoForm.value },
     });
   }
 
   onSpecificPlayerSelect() {
-    let playerCount = this.infoForm.value.playerCount as number;
-    console.log(playerCount);
     this.selectedPlayersNum++;
-    console.log(this.availablePlayers);
-    console.log(this.selectedPlayersNum);
-
-    // for (let i = playerCount - 1; i > 0; i++) {
-    //   console.log(`test ${i}`);
-    //   let checkbox = document.getElementById(`checkBoxes${i}`);
-    //   checkbox.removeAttribute('disabled');
-    // }
   }
 }
