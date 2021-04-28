@@ -46,24 +46,30 @@ export class AuthService {
     return this.router.navigate(['/login']);
   }
 
-  private updateUserData(user) {
+  private async updateUserData(user) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
+
+    const doc = await userRef.ref.get();
 
     let timesWon;
     let timesLost;
     let playersWon;
     let playersLost;
 
-    user.timesWon == null ? (timesWon = 0) : (timesWon = user.timesWon);
-    user.timesLost == null ? (timesLost = 0) : (timesLost = user.timesLost);
-    user.playersWon == null
-      ? (playersWon = [])
-      : (playersWon = user.playersWon);
-    user.playersLost == null
-      ? (playersLost = [])
-      : (playersLost = user.playersLost);
+    if (doc.exists) {
+      let invoice = doc.data();
+      timesWon = invoice.timesWon;
+      timesLost = invoice.timesLost;
+      playersWon = invoice.playersWon;
+      playersLost = invoice.playersLost;
+    } else {
+      timesWon = 0;
+      timesLost = 0;
+      playersWon = [];
+      playersLost = [];
+    }
 
     const data = {
       uid: user.uid,
