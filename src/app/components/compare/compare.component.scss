@@ -1,0 +1,52 @@
+mat-card {
+    height: 100%;
+    width: 100%;
+    .flex {
+      display: flex;
+        .right-side {
+            margin-top: 2em;
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+            text-align: center;
+            .card {
+                // template color
+                background-color: lightgray;
+                max-width: 50%;
+                margin-right: 25%;
+                margin-left: 25%;
+            }
+        }
+        .left-side {
+            margin-top: 2em;
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+}
+
+#login {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    mat-card {
+        height: 500px;
+        width: 400px;
+        margin: 25px;
+        padding: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 40px;
+            height: 40px;
+            margin: 10px;
+        }
+    }
+}
