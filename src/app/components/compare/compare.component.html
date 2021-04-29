@@ -7,7 +7,22 @@
                 <h3>Games played: {{ gamesWon + gamesLost }}</h3>
                 <h3>Games won: {{ gamesWon }}</h3>
                 <h3>Games lost: {{ gamesLost }}</h3>
-                <h3></h3>
+                <div class="playersLostWon">
+                    <h2>Players you've won against:</h2>
+                    <div>
+                        <span *ngFor="let player of playersWon">
+                            {{ player }}
+                        </span>
+                    </div>
+                </div>
+                <div class="playersLostWon">
+                    <h2>Players you've lost to:</h2>
+                    <div>
+                        <span *ngFor="let player of playersLost">
+                            {{ player }}
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="left-side">

@@ -15,6 +15,14 @@ mat-card {
                 max-width: 50%;
                 margin-right: 25%;
                 margin-left: 25%;
+                .playersLostWon {
+                    border: 1px solid black;
+                    overflow-wrap: normal;
+                    overflow-y: scroll;
+                    margin: 10px;
+                    padding: 10px;
+                    max-height: 100px;
+                }
             }
         }
         .left-side {
