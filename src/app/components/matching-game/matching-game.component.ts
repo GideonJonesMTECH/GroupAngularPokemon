@@ -33,12 +33,19 @@ export class MatchingGameComponent implements OnInit {
   selectedCards = [];
   matchedCards = [];
   winningPlayer = { name: '', score: 0, uid: '' };
+  roundsLeft = 1;
+  totalRounds = 1;
 
   playingPlayers = [];
 
   async ngOnInit(): Promise<void> {
     this.matchCount = (this.formReturn.difficulty as unknown) as number;
     this.matchesRemaining = this.matchCount;
+
+    if (this.formReturn.playerCount == 1) {
+      this.totalRounds = this.matchCount * 2;
+      this.roundsLeft = this.totalRounds;
+    }
 
     let pageNumb = 1;
     if (this.formReturn.cards === null) {
@@ -184,6 +191,16 @@ export class MatchingGameComponent implements OnInit {
   }
 
   changeTurn() {
+    if (
+      (this.playingPlayers.length == 1 && this.roundsLeft <= 0) ||
+      (this.playingPlayers.length == 1 && this.matchesRemaining == 0)
+    ) {
+      if (this.roundsLeft == 0) {
+        this.endSingleGame(false);
+      } else {
+        this.endSingleGame(true);
+      }
+    }
     if (this.matchesRemaining == 0) {
       let i = this.indexOfMax(this.playingPlayers);
       if (i.length > 1) {
@@ -197,12 +214,19 @@ export class MatchingGameComponent implements OnInit {
         this.endGame(i[0], [...this.playingPlayers]);
       }
     } else {
+      if (this.playingPlayers.length == 1) {
+        this.roundsLeft--;
+      }
       this.currentPlayer++;
       if (this.currentPlayer == this.playingPlayers.length) {
         this.currentPlayer = 0;
         this.roundNumb++;
       }
     }
+
+    console.log(`RoundsLeft: ${this.roundsLeft}`);
+    console.log(`CurrentRound: ${this.roundNumb}`);
+    console.log(`Matches Remaining: ${this.matchesRemaining}`);
   }
 
   indexOfMax(arr) {
@@ -218,7 +242,7 @@ export class MatchingGameComponent implements OnInit {
         maxIndex = [i];
         max = arr[i].score;
       } else if (arr[i].score == max) {
-        maxIndex.push(i)
+        maxIndex.push(i);
       }
     }
 
@@ -226,7 +250,6 @@ export class MatchingGameComponent implements OnInit {
   }
 
   async endGame(winningPlayerIndex, losingPlayers) {
-
     if (winningPlayerIndex == 0) {
       losingPlayers.shift();
     } else {
@@ -262,7 +285,7 @@ export class MatchingGameComponent implements OnInit {
     console.log(`Tie! The winners are: ${winners}`);
     let winnerArr = [];
     for (let i = 0; i < winners.length; i++) {
-      winnerArr.push(this.playerArr[winners[i]]);      
+      winnerArr.push(this.playerArr[winners[i]]);
     }
 
     this.matchCount = 3;
@@ -284,14 +307,20 @@ export class MatchingGameComponent implements OnInit {
     console.log(this.playerArr);
 
     for (let i = 0; i < winners.length; i++) {
-      let userData = await this.authService.getUserById(
-        winnerArr[i].uid
-      );
+      let userData = await this.authService.getUserById(winnerArr[i].uid);
       this.playingPlayers.push({
         name: userData.displayName,
         score: 0,
         uid: userData.uid,
       });
     }
+  }
+
+  async endSingleGame(won) {
+    this.authService.updateStats(
+      await this.authService.getUserById(this.currentUserService.getUser()),
+      won,
+      [{ displayName: 'The Game Itself' }, won ? '' : 'The Game Itself']
+    );
   }
 }
