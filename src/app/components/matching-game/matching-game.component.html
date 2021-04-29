@@ -5,6 +5,7 @@
       {{ player.name }} : {{ player.score }}
     </h3>
     <h2>{{ winningPlayer.name }} has won!</h2>
+    <button mat-raised-button routerLink="./account">View Stats!</button>
   </div>
 
   <div class="finishedPage" *ngIf="roundsLeft == 0">
@@ -13,9 +14,10 @@
       {{ player.name }} : {{ player.score }}
     </h3>
     <h2>You Lost!</h2>
+    <button mat-raised-button routerLink="./account">View Stats!</button>
   </div>
 
-  <div *ngIf="roundsLeft > 0">
+  <div *ngIf="roundsLeft > 0" id="stadium">
     <div id="PlayingField" *ngIf="matchesRemaining > 0">
       <div
         *ngFor="let card of matchingCards; let i = index"
@@ -32,6 +34,7 @@
         <img class="lrgImg" src="{{ card.lrgImg }}" id="lrg{{ i }}" />
       </div>
     </div>
+    <span></span>
   </div>
 
   <footer>
