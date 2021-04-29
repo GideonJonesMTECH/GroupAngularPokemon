@@ -1,1 +1,29 @@
-<p>compare works!</p>
+<mat-card *ngIf="authService.user$ | async as user;">
+    <div class="flex">
+        <div class="right-side">
+            <h3>Your Stats!</h3>
+            <div class="card">
+                <h3>Name: {{ user.displayName }}</h3>
+                <h3>Games played: {{ gamesWon + gamesLost }}</h3>
+                <h3>Games won: {{ gamesWon }}</h3>
+                <h3>Games lost: {{ gamesLost }}</h3>
+                <h3></h3>
+            </div>
+        </div>
+        <div class="left-side">
+            <h3>Player Stats!</h3>
+        </div>
+    </div>
+</mat-card>
+
+<ng-template #login>
+    <div id="login">
+        <mat-card>
+            <img src="../assets/googleLogo.png" alt="google logo">
+            <button mat-raised-button color="primary" (click)="authService.googleSignIn()">
+                Login with Google
+            </button>
+        </mat-card>
+    </div>
+</ng-template>
+
