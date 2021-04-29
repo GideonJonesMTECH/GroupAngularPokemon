@@ -26,7 +26,7 @@ export class GameSettingsComponent implements OnInit {
 
   usersArr;
   currentUserId;
-  availablePlayers;
+  availablePlayers = 1;
   selectedPlayersNum = 0;
 
   ngOnInit(): void {
@@ -52,19 +52,11 @@ export class GameSettingsComponent implements OnInit {
 
   onDifficultySelect() {
     this.selectedDifficulty = true;
-    if (this.selectedDifficulty && this.selectedPlayers) {
-      let courseButton = document.getElementById('gamePlayButton');
-      courseButton.removeAttribute('disabled');
-    }
   }
 
   onPlayerSelect() {
     this.selectedPlayers = true;
     this.availablePlayers = this.infoForm.value.playerCount - 1;
-    if (this.selectedDifficulty && this.selectedPlayers) {
-      let courseButton = document.getElementById('gamePlayButton');
-      courseButton.removeAttribute('disabled');
-    }
   }
 
   onFormSubmit(formvalue) {

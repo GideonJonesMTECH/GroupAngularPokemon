@@ -29,8 +29,6 @@
                 formControlName="difficulty"
                 (selectionChange)="onDifficultySelect()"
               >
-                <mat-option value="1">Baby Mode - 1</mat-option>
-                <mat-option value="2">Tie Mode - 2</mat-option>
                 <mat-option value="5">Easy - 5</mat-option>
                 <mat-option value="8">Medium - 8</mat-option>
                 <mat-option value="12">Hard - 12</mat-option>
@@ -60,7 +58,11 @@
                 mat-raised-button
                 type="submit"
                 id="gamePlayButton"
-                [disabled]="!selectedPlayers || !selectedDifficulty"
+                [disabled]="
+                  !selectedPlayers ||
+                  !selectedDifficulty ||
+                  selectedPlayersNum != availablePlayers
+                "
               >
                 Play Game!
               </button>
