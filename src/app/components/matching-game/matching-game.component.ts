@@ -34,6 +34,8 @@ export class MatchingGameComponent implements OnInit {
   matchedCards = [];
   winningPlayer = { name: '', score: 0, uid: '' };
 
+  playingPlayers = [];
+
   async ngOnInit(): Promise<void> {
     this.matchCount = (this.formReturn.difficulty as unknown) as number;
     this.matchesRemaining = this.matchCount;
@@ -68,6 +70,8 @@ export class MatchingGameComponent implements OnInit {
         });
       }
     }
+
+    this.playingPlayers = [...this.playerArr];
   }
 
   setup(data) {
@@ -165,7 +169,7 @@ export class MatchingGameComponent implements OnInit {
         this.matchesRemaining--;
         this.matchedCards.push(id);
 
-        this.playerArr[this.currentPlayer].score++;
+        this.playingPlayers[this.currentPlayer].score++;
       }
 
       this.selectedCards = [];
@@ -181,12 +185,20 @@ export class MatchingGameComponent implements OnInit {
 
   changeTurn() {
     if (this.matchesRemaining == 0) {
-      let i = this.indexOfMax(this.playerArr);
-      this.winningPlayer = this.playerArr[i];
-      this.endGame(i, [...this.playerArr]);
+      let i = this.indexOfMax(this.playingPlayers);
+      if (i.length > 1) {
+        this.winningPlayer = this.playingPlayers[i[0]];
+        this.endGame(i[0], [...this.playingPlayers]);
+        this.winningPlayer = this.playingPlayers[i[1]];
+        this.endGame(i[1], [...this.playingPlayers]);
+        this.tieBreaker(i);
+      } else {
+        this.winningPlayer = this.playingPlayers[i[0]];
+        this.endGame(i[0], [...this.playingPlayers]);
+      }
     } else {
       this.currentPlayer++;
-      if (this.currentPlayer == this.playerArr.length) {
+      if (this.currentPlayer == this.playingPlayers.length) {
         this.currentPlayer = 0;
         this.roundNumb++;
       }
@@ -195,16 +207,18 @@ export class MatchingGameComponent implements OnInit {
 
   indexOfMax(arr) {
     if (arr.length === 0) {
-      return -1;
+      return [-1];
     }
 
     var max = arr[0].score;
-    var maxIndex = 0;
+    var maxIndex = [0];
 
     for (var i = 1; i < arr.length; i++) {
       if (arr[i].score > max) {
-        maxIndex = i;
+        maxIndex = [i];
         max = arr[i].score;
+      } else if (arr[i].score == max) {
+        maxIndex.push(i)
       }
     }
 
@@ -212,6 +226,7 @@ export class MatchingGameComponent implements OnInit {
   }
 
   async endGame(winningPlayerIndex, losingPlayers) {
+
     if (winningPlayerIndex == 0) {
       losingPlayers.shift();
     } else {
@@ -240,6 +255,43 @@ export class MatchingGameComponent implements OnInit {
           this.winningPlayer.name
         );
       }
+    }
+  }
+
+  async tieBreaker(winners) {
+    console.log(`Tie! The winners are: ${winners}`);
+    let winnerArr = [];
+    for (let i = 0; i < winners.length; i++) {
+      winnerArr.push(this.playerArr[winners[i]]);      
+    }
+
+    this.matchCount = 3;
+    this.matchesRemaining = this.matchCount;
+
+    let pageNumb = 1;
+    if (this.formReturn.cards === null) {
+      pageNumb = this.generateRandomNumber(1, 54);
+    } else {
+      pageNumb = this.formReturn.cards;
+    }
+    this.matchingCards = [];
+    this.api.apiCall((pageNumb as unknown) as string).subscribe((data) => {
+      let returnData = data as ApiReturn;
+      this.setup(returnData.data);
+    });
+
+    this.playingPlayers = [];
+    console.log(this.playerArr);
+
+    for (let i = 0; i < winners.length; i++) {
+      let userData = await this.authService.getUserById(
+        winnerArr[i].uid
+      );
+      this.playingPlayers.push({
+        name: userData.displayName,
+        score: 0,
+        uid: userData.uid,
+      });
     }
   }
 }
