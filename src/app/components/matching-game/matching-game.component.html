@@ -1,7 +1,7 @@
 <div *ngIf="matchingCards.length > 1; else spinner">
   <div class="finishedPage" *ngIf="matchesRemaining == 0">
     <h1>Game Over!</h1>
-    <h3 *ngFor="let player of playerArr">
+    <h3 *ngFor="let player of playingPlayers">
       {{ player.name }} : {{ player.score }}
     </h3>
     <h2>{{ winningPlayer.name }} has won!</h2>
@@ -25,14 +25,14 @@
   </div>
 
   <footer>
-    <div *ngIf="playerArr.length > 1" id="currentPlayer">
-      <h1>{{ playerArr[currentPlayer].name }}'s turn</h1>
+    <div *ngIf="playingPlayers.length > 1" id="currentPlayer">
+      <h1>{{ playingPlayers[currentPlayer].name }}'s turn</h1>
     </div>
     <div id="bottomFooter">
       <div>
         <h1>Round: {{ roundNumb }}</h1>
       </div>
-      <div *ngFor="let player of playerArr">
+      <div *ngFor="let player of playingPlayers">
         <h1>{{ player.name }} Score: {{ player.score }}</h1>
       </div>
       <div>
