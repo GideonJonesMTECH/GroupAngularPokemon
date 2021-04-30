@@ -1,0 +1,24 @@
+<div *ngIf="topPlayers; else spinner">
+    <div *ngFor="let player of topPlayers; let i = index">
+        <mat-card class="top{{ i + 1 }}">
+            <div class="placement">
+                {{ i + 1 }}
+            </div>
+            <div class="playerInfo">
+                <img src="{{ player.photoURL }}" alt="{{ player.displayName }} image">
+                <div class="displayName">
+                    {{ player.displayName }}
+                </div>
+                <div class="wins">
+                    Wins: {{ player.timesWon }}
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+<ng-template #spinner>
+    <div class="spinnerDiv">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>

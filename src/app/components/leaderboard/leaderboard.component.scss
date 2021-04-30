@@ -1,0 +1,36 @@
+mat-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px;
+
+    .playerInfo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-grow: 1;
+        margin: 0 50px;
+
+        img {
+            border-radius: 50%;
+            height: 50px;
+        }
+    }
+}
+
+.top1 {
+    background-color: gold;
+}
+.top2 {
+    background-color: silver;
+}
+.top3 {
+    background-color: tan;
+}
+
+.spinnerDiv {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
