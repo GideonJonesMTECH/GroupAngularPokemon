@@ -21,6 +21,7 @@ import { AccountComponent } from './components/account/account.component';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 import firebase from 'firebase/app';
 import { CompareComponent } from './components/compare/compare.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 firebase.initializeApp(environment.firebase);
 
@@ -32,6 +33,7 @@ firebase.initializeApp(environment.firebase);
     NavBarComponent,
     GameSettingsComponent,
     CompareComponent,
+    LeaderboardComponent,
   ],
   imports: [
     BrowserModule,
