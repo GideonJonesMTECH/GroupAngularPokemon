@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { CurrentUserService } from '../../services/current-user.service';
+import {FormControl, Validators} from '@angular/forms';
+
 
 @Component({
   selector: 'app-compare',
@@ -8,6 +10,10 @@ import { CurrentUserService } from '../../services/current-user.service';
   styleUrls: ['./compare.component.scss']
 })
 export class CompareComponent implements OnInit {
+
+  searchBarControl = new FormControl('', [
+    Validators.required
+  ]);
 
   gamesWon: number;
   gamesLost: number;

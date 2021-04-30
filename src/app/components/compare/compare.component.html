@@ -26,7 +26,19 @@
             </div>
         </div>
         <div class="left-side">
-            <h3>Player Stats!</h3>
+            <h3>Opponent Stats!</h3>
+            <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Opponent Name</mat-label>
+                  <input type="text" matInput [formControl]="searchBarControl" placeholder="Ex. Iron Man">
+                  <mat-error *ngIf="!searchBarControl.hasError('required')">
+                    Please enter a valid name
+                  </mat-error>
+                  <mat-error *ngIf="searchBarControl.hasError('required')">
+                    Name is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </form>
         </div>
     </div>
 </mat-card>
