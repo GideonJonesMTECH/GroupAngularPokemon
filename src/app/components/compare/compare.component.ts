@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { CurrentUserService } from '../../services/current-user.service';
-import {FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 @Component({
@@ -20,12 +21,14 @@ export class CompareComponent implements OnInit {
   playersWon = [];
   playersLost = [];
 
+  usersArr;
+  user;
+
   constructor(
     private currentUserServe: CurrentUserService,
-    public authService: AuthService
+    public authService: AuthService,
+    private afs: AngularFirestore
   ) { }
-
-  user;
 
   ngOnInit(): void {
     this.authService.user$.subscribe(doc => {
@@ -44,6 +47,13 @@ export class CompareComponent implements OnInit {
         }
       }
     })
-  }
 
+    this.afs
+      .collection('users')
+      .valueChanges()
+      .subscribe((val) => {
+        this.usersArr = val;
+        console.log(this.usersArr);
+      });
+  }
 }
