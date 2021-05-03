@@ -1,48 +1,75 @@
-<mat-card *ngIf="authService.user$ | async as user;">
-    <div class="flex">
-        <div class="right-side">
-            <h3>Your Stats!</h3>
-            <div class="card">
-                <h3>Name: {{ user.displayName }}</h3>
-                <h3>Games played: {{ gamesWon + gamesLost }}</h3>
-                <h3>Games won: {{ gamesWon }}</h3>
-                <h3>Games lost: {{ gamesLost }}</h3>
-                <div class="playersLostWon">
-                    <h2>Players you've won against:</h2>
-                    <div>
-                        <span *ngFor="let player of playersWon">
-                            {{ player }}
-                        </span>
-                    </div>
-                </div>
-                <div class="playersLostWon">
-                    <h2>Players you've lost to:</h2>
-                    <div>
-                        <span *ngFor="let player of playersLost">
-                            {{ player }}
-                        </span>
-                    </div>
-                </div>
-            </div>
+<mat-card *ngIf="authService.user$ | async as user">
+  <div class="flex">
+    <div class="right-side">
+      <h3>Your Stats!</h3>
+      <div class="card">
+        <h3>Name: {{ user.displayName }}</h3>
+        <h3>Games played: {{ gamesWon + gamesLost }}</h3>
+        <h3>Games won: {{ gamesWon }}</h3>
+        <h3>Games lost: {{ gamesLost }}</h3>
+        <div class="playersLostWon">
+          <h2>Players you've won against:</h2>
+          <div>
+            <span *ngFor="let player of playersWon">
+              {{ player }}
+            </span>
+          </div>
         </div>
-        <div class="left-side">
-            <h3>Opponent Stats!</h3>
-            <form class="example-form">
-                <mat-form-field class="example-full-width">
-                  <mat-label>Opponent Name</mat-label>
-                  <input type="text" matInput [formControl]="searchBarControl" placeholder="Ex. Iron Man">
-                  <mat-error *ngIf="!searchBarControl.hasError('required')">
-                    Please enter a valid name
-                  </mat-error>
-                  <mat-error *ngIf="searchBarControl.hasError('required')">
-                    Name is <strong>required</strong>
-                  </mat-error>
-                </mat-form-field>
-              </form>
-              <div *ngFor="let user of usersArr">
-                {{ user.displayName }}
-              </div>
+        <div class="playersLostWon">
+          <h2>Players you've lost to:</h2>
+          <div>
+            <span *ngFor="let player of playersLost">
+              {{ player }}
+            </span>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="left-side">
+      <h3>Opponent Stats!</h3>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Opponent Name</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControl]="searchBarControl"
+            placeholder="Ex. Iron Man"
+            (change)="NameSearch()"
+            id="NameSearchBar"
+          />
+          <mat-error *ngIf="!searchBarControl.hasError('required')">
+            Please enter a valid name
+          </mat-error>
+          <mat-error *ngIf="searchBarControl.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </form>
+      <div *ngFor="let user of foundUsers">
+        <div class="card">
+          <h3>Name: {{ user.displayName }}</h3>
+          <h3>Games played: {{ user.timesWon + user.timesLost }}</h3>
+          <h3>Games won: {{ user.timesWon }}</h3>
+          <h3>Games lost: {{ user.timesLost }}</h3>
+          <div class="playersLostWon">
+            <h2>Players {{ user.displayName }} won against:</h2>
+            <div>
+              <span *ngFor="let player of playersWon">
+                {{ player }}
+              </span>
+            </div>
+          </div>
+          <div class="playersLostWon">
+            <h2>Players {{ user.displayName }} lost to:</h2>
+            <div>
+              <span *ngFor="let player of playersLost">
+                {{ player }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </mat-card>
-
