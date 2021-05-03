@@ -4,16 +4,14 @@ import { AngularFirestore } from '@angular/fire/firestore';
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.scss']
+  styleUrls: ['./leaderboard.component.scss'],
 })
 export class LeaderboardComponent implements OnInit {
-
   usersArr;
   topPlayers;
+  champion;
 
-  constructor(
-    private afs: AngularFirestore
-  ) { }
+  constructor(private afs: AngularFirestore) {}
 
   ngOnInit(): void {
     this.afs
@@ -21,8 +19,13 @@ export class LeaderboardComponent implements OnInit {
       .valueChanges()
       .subscribe((val) => {
         this.usersArr = val;
-        this.topPlayers = this.usersArr.sort((a, b) => a.timesWon - b.timesWon).reverse().slice(0, 5);
+        this.topPlayers = this.usersArr
+          .sort((a, b) => a.timesWon - b.timesWon)
+          .reverse()
+          .slice(1, 5);
+        this.champion = this.usersArr
+          .sort((a, b) => a.timesWon - b.timesWon)
+          .reverse()[0];
       });
   }
-
 }

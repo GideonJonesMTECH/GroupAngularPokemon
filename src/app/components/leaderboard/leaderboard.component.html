@@ -1,24 +1,42 @@
 <div *ngIf="topPlayers; else spinner">
-    <div *ngFor="let player of topPlayers; let i = index">
-        <mat-card class="top{{ i + 1 }}">
-            <div class="placement">
-                {{ i + 1 }}
-            </div>
-            <div class="playerInfo">
-                <img src="{{ player.photoURL }}" alt="{{ player.displayName }} image">
-                <div class="displayName">
-                    {{ player.displayName }}
-                </div>
-                <div class="wins">
-                    Wins: {{ player.timesWon }}
-                </div>
-            </div>
-        </mat-card>
+  <h3>Champion</h3>
+  <mat-card class="top1">
+    <div class="placement">1</div>
+    <div class="playerInfo">
+      <img
+        src="{{ champion.photoURL }}"
+        alt="{{ champion.displayName }} image"
+      />
+      <div class="displayName">
+        {{ champion.displayName }}
+      </div>
+      <div class="wins">Wins: {{ champion.timesWon }}</div>
+      <img src="../../../assets/redChampGif.gif" alt="Champ" />
     </div>
+  </mat-card>
+  <h3>Elite 4</h3>
+  <div *ngFor="let player of topPlayers; let i = index">
+    <mat-card class="top{{ i + 2 }}">
+      <div class="placement">
+        {{ i + 2 }}
+      </div>
+      <div class="playerInfo">
+        <img src="{{ player.photoURL }}" alt="{{ player.displayName }} image" />
+        <div class="displayName">
+          {{ player.displayName }}
+        </div>
+        <div class="wins">Wins: {{ player.timesWon }}</div>
+        <img
+          src="../../../assets/elite{{ i + 1 }}.png"
+          alt="elite{{ i + 1 }}"
+        />
+      </div>
+    </mat-card>
+  </div>
 </div>
 
 <ng-template #spinner>
-    <div class="spinnerDiv">
-        <mat-spinner></mat-spinner>
-    </div>
+  <div class="spinnerDiv">
+    <mat-spinner></mat-spinner>
+  </div>
 </ng-template>
