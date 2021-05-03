@@ -10,18 +10,18 @@ import { MatchingGameComponent } from './components/matching-game/matching-game.
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { AccountComponent } from './components/account/account.component';
+import { GameSettingsComponent } from './components/game-settings/game-settings.component';
+import { CompareComponent } from './components/compare/compare.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 // firebase
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { AccountComponent } from './components/account/account.component';
-import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 import firebase from 'firebase/app';
-import { CompareComponent } from './components/compare/compare.component';
-import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 firebase.initializeApp(environment.firebase);
 
