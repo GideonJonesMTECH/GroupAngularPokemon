@@ -12,6 +12,7 @@
     min-height: calc(100vh + 180px);
 
     .matchingTile {
+      display: flex;
       justify-content: center;
       text-align: center;
       align-items: center;
@@ -25,6 +26,9 @@
         -webkit-user-drag: none;
         -webkit-user-select: none;
         -ms-user-select: none;
+      }
+      .smlImg {
+        opacity: 0;
       }
       .smlImg,
       .backImg {
@@ -44,9 +48,6 @@
       .lrgImg,
       .backImg {
         position: absolute;
-        top: 49%;
-        left: 50%;
-        transform: translate(-50%, -50%);
       }
     }
   }
