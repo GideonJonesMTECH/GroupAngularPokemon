@@ -1,36 +1,49 @@
 mat-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px;
+
+  .playerInfo {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 25px;
+    flex-grow: 1;
+    margin: 0 50px;
 
-    .playerInfo {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-grow: 1;
-        margin: 0 50px;
-
-        img {
-            border-radius: 50%;
-            height: 50px;
-        }
+    img {
+      border-radius: 50%;
+      height: 50px;
     }
+  }
 }
 
 .top1 {
-    background-color: gold;
+  background-color: gold;
 }
 .top2 {
-    background-color: silver;
+  background-color: blue;
+  color: white;
+  //dragon
+  //make own indigo?
 }
 .top3 {
-    background-color: tan;
+  background-color: purple;
+  color: white;
+  //poison and ghost
+}
+.top4 {
+  background-color: tan;
+  //rock and fighting
+}
+.top5 {
+  background-color: lightblue;
+  //ice and water
 }
 
 .spinnerDiv {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
