@@ -3,7 +3,6 @@
 .flex,
 .link {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 2em;
   a {
@@ -32,4 +31,18 @@
 
 #nav-bar {
   height: var(--navBarHeight);
+}
+
+.linksDiv {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+mat-nav-list > a {
+  padding: 10px 0;
+
+  mat-icon {
+    margin-right: 10px;
+  }
 }

@@ -1,35 +1,66 @@
 <mat-toolbar id="nav-bar" class="flex">
+  <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+    <mat-icon>menu</mat-icon>
+  </button>
   <div class="flex">Pokémon Match</div>
-  <div class="link" id="gameSettings">
-    <div>
-      <button mat-icon-button routerLink="./game-settings">
-        <mat-icon>settings</mat-icon>
-      </button>
+  <div class="linksDiv" fxShow="true" fxHide.lt-md>
+    <div class="link" id="gameSettings">
+      <div>
+        <button mat-icon-button routerLink="./game-settings">
+          <mat-icon>settings</mat-icon>
+        </button>
+      </div>
+      <div><a routerLink="./game-settings">Game Settings</a></div>
     </div>
-    <div><a routerLink="./game-settings">Game Settings</a></div>
-  </div>
-  <div class="link" id="account">
-    <div>
-      <button mat-icon-button routerLink="./account">
-        <mat-icon>assignment</mat-icon>
-      </button>
+    <div class="link" id="account">
+      <div>
+        <button mat-icon-button routerLink="./account">
+          <mat-icon>assignment</mat-icon>
+        </button>
+      </div>
+      <div><a routerLink="./account">Stats</a></div>
     </div>
-    <div><a routerLink="./account">Stats</a></div>
-  </div>
-  <div class="link" id="compare">
-    <div>
-      <button mat-icon-button routerLink="./compare">
-        <mat-icon>contacts</mat-icon>
-      </button>
+    <div class="link" id="compare">
+      <div>
+        <button mat-icon-button routerLink="./compare">
+          <mat-icon>contacts</mat-icon>
+        </button>
+      </div>
+      <div><a routerLink="./compare">Compare Stats!</a></div>
     </div>
-    <div><a routerLink="./compare">Compare Stats!</a></div>
-  </div>
-  <div class="link" id="leaderboard">
-    <div>
-      <button mat-icon-button routerLink="./leaderboard">
-        <mat-icon>group</mat-icon>
-      </button>
+    <div class="link" id="leaderboard">
+      <div>
+        <button mat-icon-button routerLink="./leaderboard">
+          <mat-icon>group</mat-icon>
+        </button>
+      </div>
+      <div><a routerLink="./leaderboard">Leaderboard</a></div>
     </div>
-    <div><a routerLink="./leaderboard">Leaderboard</a></div>
   </div>
 </mat-toolbar>
+
+<mat-sidenav-container fxFlexFill>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a routerLink="./game-settings" mat-list-item>
+        <mat-icon>settings</mat-icon>
+        Game Settings
+      </a>
+      <a routerLink="./account" mat-list-item>
+        <mat-icon>assignment</mat-icon>
+        Stats
+      </a>
+      <a routerLink="./compare" mat-list-item>
+        <mat-icon>contacts</mat-icon>
+        Compare Stats!
+      </a>
+      <a routerLink="./leaderboard" mat-list-item>
+        <mat-icon>group</mat-icon>
+        Leaderboard
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content fxFlexFill>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
