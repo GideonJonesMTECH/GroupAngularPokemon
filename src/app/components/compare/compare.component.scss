@@ -16,6 +16,10 @@ mat-card {
         margin: 10px;
         padding: 10px;
         max-height: 100px;
+        .playerList {
+          display: flex;
+          flex-direction: column;
+        }
       }
     }
     .right-side {

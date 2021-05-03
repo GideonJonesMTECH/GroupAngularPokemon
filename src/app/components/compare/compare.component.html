@@ -9,18 +9,14 @@
         <h3>Games lost: {{ gamesLost }}</h3>
         <div class="playersLostWon">
           <h2>Players you've won against:</h2>
-          <div>
-            <span *ngFor="let player of playersWon">
-              {{ player }}
-            </span>
+          <div class="playerList">
+            <span *ngFor="let player of playersWon"> {{ player }} </span>
           </div>
         </div>
         <div class="playersLostWon">
           <h2>Players you've lost to:</h2>
-          <div>
-            <span *ngFor="let player of playersLost">
-              {{ player }}
-            </span>
+          <div class="playerList">
+            <span *ngFor="let player of playersLost"> {{ player }} </span>
           </div>
         </div>
       </div>
@@ -54,16 +50,14 @@
           <h3>Games lost: {{ user.timesLost }}</h3>
           <div class="playersLostWon">
             <h2>Players {{ user.displayName }} won against:</h2>
-            <div>
-              <span *ngFor="let player of playersWon">
-                {{ player }}
-              </span>
+            <div class="playerList">
+              <span *ngFor="let player of user.playersWon"> {{ player }} </span>
             </div>
           </div>
           <div class="playersLostWon">
             <h2>Players {{ user.displayName }} lost to:</h2>
-            <div>
-              <span *ngFor="let player of playersLost">
+            <div class="playerList">
+              <span *ngFor="let player of user.playersLost">
                 {{ player }}
               </span>
             </div>
