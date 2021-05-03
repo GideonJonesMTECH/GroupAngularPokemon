@@ -7,19 +7,15 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent implements OnInit {
-
-
   gamesWon: number;
   gamesLost: number;
   playersWon = [];
   playersLost = [];
 
-  constructor(
-    public authService: AuthService
-  ) { }
+  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authService.user$.subscribe(doc => {
+    this.authService.user$.subscribe((doc) => {
       this.gamesWon = doc.timesWon;
       this.gamesLost = doc.timesLost;
 
@@ -34,6 +30,6 @@ export class AccountComponent implements OnInit {
           this.playersLost.push(doc.playersLost[i]);
         }
       }
-    })
+    });
   }
 }

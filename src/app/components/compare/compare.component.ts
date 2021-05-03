@@ -61,12 +61,29 @@ export class CompareComponent implements OnInit {
     ) as HTMLInputElement;
     let searchReturn = searchbarEl.value.toLowerCase();
     console.log(searchReturn);
+
     for (let i = 0; i < this.usersArr.length; i++) {
       if (
         this.usersArr[i].displayName.toLowerCase().includes(searchReturn) &&
         this.usersArr[i] !== this.user
       ) {
-        this.foundUsers.push(this.usersArr[i]);
+        let foundUser = this.usersArr[i];
+        let foundWon = [];
+        let foundLost = [];
+        for (let i = 0; i < foundUser.playersWon.length; i++) {
+          if (!foundWon.includes(foundUser.playersWon[i])) {
+            foundWon.push(foundUser.playersWon[i]);
+          }
+        }
+        for (let i = 0; i < foundUser.playersLost.length; i++) {
+          if (!foundLost.includes(foundUser.playersLost[i])) {
+            foundLost.push(foundUser.playersLost[i]);
+          }
+        }
+        foundUser.playersWon = foundWon;
+        foundUser.playersLost = foundLost;
+
+        this.foundUsers.push(foundUser);
       }
     }
   }
