@@ -1,5 +1,5 @@
-<div *ngIf="topPlayers; else spinner">
-  <h3>Champion</h3>
+<div *ngIf="topPlayers; else spinner" id="content">
+  <h2>Champion</h2>
   <mat-card class="top1">
     <div class="placement">1</div>
     <div class="playerInfo">
@@ -14,7 +14,7 @@
       <img src="../../../assets/redChampGif.gif" alt="Champ" />
     </div>
   </mat-card>
-  <h3>Elite 4</h3>
+  <h2>Elite 4</h2>
   <div *ngFor="let player of topPlayers; let i = index">
     <mat-card class="top{{ i + 2 }}">
       <div class="placement">
