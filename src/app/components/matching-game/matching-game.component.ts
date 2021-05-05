@@ -175,6 +175,12 @@ export class MatchingGameComponent implements OnInit {
         ).style.opacity = '0';
         this.matchesRemaining--;
         this.matchedCards.push(id);
+        document.getElementById(
+          `sml${this.selectedCards[0].numb}`
+        ).style.opacity = '100';
+        document.getElementById(
+          `sml${this.selectedCards[1].numb}`
+        ).style.opacity = '100';
 
         this.playingPlayers[this.currentPlayer].score++;
       }
